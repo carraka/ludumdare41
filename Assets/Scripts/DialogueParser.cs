@@ -23,42 +23,37 @@ public class DialogueParser : MonoBehaviour {
 		}
 	}
 
-	public List<DialogueLine> lines;
-	public List<DialogueLine> skillLines;
-	public List<DialogueLine> roomLines;
+	public List<DialogueLine> NPCLines;
+	public List<DialogueLine> loveLines;
+	public List<DialogueLine> spyLines;
 
-	public List<DialogueLine> activeList;
+	public List<DialogueLine> activeLines;
 
 	public Dictionary<string, bool> Flags = new Dictionary<string, bool> ();
 	static string LINE_SPLIT_RE = @"\r\n|\n\r|\n|\r";
 
-	void Start () {
-		Debug.Log ("DiaParser STARTING");
-		
-//		string file = "Assets/TextAssets/ludum37.txt";
-//		lines = new List<DialogueLine> ();
-//
-//		LoadDialogue (file, lines);
-//
-//		activeList = lines;
-//
-//		PrintAllContent(lines);
-//		Debug.Log (FlagCheck ("giraffe.sold"));
+	void Start() {
+		NPCLines = new List<DialogueLine> ();
+		loveLines = new List<DialogueLine> ();
+		spyLines = new List<DialogueLine> ();
+
+		string file = "Text/NPCText";
+		LoadDialogue (file, NPCLines);
+
+		//Debug.Log ("NPC loaded");
+		file = "Text/LoveText";
+		LoadDialogue (file, loveLines);
+		//Debug.Log ("love loaded");
+
+		file = "Text/SpyText";
+		LoadDialogue (file, spyLines);
+		//Debug.Log ("spy loaded");
 
 
-	}
+		activeLines = NPCLines;
 
-	public void init() {
-		Debug.Log ("DiaPars: calling init");
-		string file = "TextAssets/phoneStories";
-		lines = new List<DialogueLine> ();
+		//PrintAllContent(activeLines);
 
-		LoadDialogue (file, lines);
-
-		activeList = lines;
-
-		//PrintAllContent(lines);
-		//Debug.Log (FlagCheck ("giraffe.sold=T"));		
 	}
 
 	void Update () {
@@ -119,8 +114,8 @@ public class DialogueParser : MonoBehaviour {
 
 				if (lineData[1] == "over")
 				{
-					Debug.Log ("over called");
-					activeList = lines;
+					//Debug.Log ("over called");
+					//activeLines = NPCLines;
 				}
 
 
@@ -178,9 +173,9 @@ public class DialogueParser : MonoBehaviour {
 
 	public int SearchStory(string code)
 	{
-		for (int i = 0; i<activeList.Count;i++)
+		for (int i = 0; i<activeLines.Count;i++)
 		{
-			if (activeList[i].key == code)
+			if (activeLines[i].key == code)
 			{
 				return i;
 			}
@@ -191,29 +186,29 @@ public class DialogueParser : MonoBehaviour {
 	}
 
 	public string GetKey(int lineNumber){
-		if (lineNumber <activeList.Count){
-			return activeList [lineNumber].key;
+		if (lineNumber <activeLines.Count){
+			return activeLines [lineNumber].key;
 		}
 		return "";
 	}
 
 	public string GetSpeaker (int lineNumber){
-		if (lineNumber < activeList.Count){
-			return activeList[lineNumber].speaker;
+		if (lineNumber < activeLines.Count){
+			return activeLines[lineNumber].speaker;
 		}
 		return "";
 	}
 
 	public string GetContent(int lineNumber){
-		if (lineNumber < activeList.Count){
-			return activeList [lineNumber].content;
+		if (lineNumber < activeLines.Count){
+			return activeLines [lineNumber].content;
 		}
 		return "";
 	}
 
 	public string[] GetOptions (int lineNumber){
-		if (lineNumber < activeList.Count){
-			return activeList [lineNumber].options;
+		if (lineNumber < activeLines.Count){
+			return activeLines [lineNumber].options;
 		}
 		return new string[0];
 	}

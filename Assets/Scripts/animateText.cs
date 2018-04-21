@@ -4,13 +4,16 @@ using UnityEngine.UI;
 
 public class animateText : MonoBehaviour {
 
-	public gameManager gameManager;
+	private GameManager gameManager;
 	public Text storyText;
 	private float fadeInTime = 0.025F;
 	private string str;
 
 	bool printingText = true;
 
+	void Awake (){
+		gameManager = GameObject.Find ("GameManager").GetComponent<GameManager> ();
+	}
 	void Update(){
 		if (Input.GetButtonDown ("Fire1")) {
 			//Debug.Log ("clicked");
