@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 289a76422b3975c4fa0d3df9f88b8635
-timeCreated: 1524321437
+guid: 746ea6b8d5c00e84b85202ffbfe1cf3c
+timeCreated: 1524341229
 licenseType: Free
 TrueTypeFontImporter:
   externalObjects: {}
@@ -10,9 +10,9 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: LoveNess
+  fontName: Janda Apple Cobbler Solid
   fontNames:
-  - LoveNess
+  - Janda Apple Cobbler Solid
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
