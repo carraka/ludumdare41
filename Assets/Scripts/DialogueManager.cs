@@ -26,6 +26,7 @@ public class DialogueManager : MonoBehaviour {
 
 	private Text spyText;
 	private Text loveText;
+	private Text NPCText;
 	private Image characterArt;
 	private Image dialogueBox;
 	private Image textBG;
@@ -41,6 +42,8 @@ public class DialogueManager : MonoBehaviour {
 	bool debugging = false;
 	public bool gameOver = false;
 	public bool waiting = false;
+
+	private int lineNum;
 	//Image illustration;
 
 	// Use this for initialization
@@ -49,6 +52,7 @@ public class DialogueManager : MonoBehaviour {
 	{
 		spyText = GameObject.Find ("SpyText").GetComponent<Text> ();
 		loveText = GameObject.Find ("LoveText").GetComponent<Text> ();
+		NPCText = GameObject.Find ("NPCText").GetComponent<Text> ();
 		dialogueBox = GameObject.Find ("DialogueBox").GetComponent<Image>();
 		textBG = GameObject.Find ("TextBG").GetComponent<Image>();
 
@@ -77,9 +81,15 @@ public class DialogueManager : MonoBehaviour {
 	}
 
 	void Update () {
-		/*if (debugging)
-			return;
-		if (Input.GetKeyDown("space")) UpdateDialogue (true);*/
+		
+		/*	if (Input.GetKeyDown (KeyCode.Space))
+			AdvanceDialogue ("NPC");
+
+		if (Input.GetKeyDown (KeyCode.LeftArrow))
+			AdvanceDialogue ("spy");
+		
+		if (Input.GetKeyDown (KeyCode.RightArrow))
+			AdvanceDialogue ("love");*/
 
 	}
 		
@@ -104,12 +114,87 @@ public class DialogueManager : MonoBehaviour {
 
 
 
+	void ClearTalkingSounds()
+	{
+		/*	customerSound.Stop ();
+		catSound.Stop ();
+		bossSound.Stop ();*/
+	}
+
+	public void AdvanceDialogue(string lines)
+	{
+		switch (lines)
+		{
+		case "NPC":
+			lineNum = NPCNum;
+			parser.activeLines = parser.NPCLines;
+			activeText = NPCText;
+			ParseLine ();
+			NPCNum++;
+			break;
+
+		case "spy":
+			parser.activeLines = parser.spyLines;
+			lineNum = spyNum;
+			activeText = spyText;
+			ParseLine ();
+			spyNum++;
+			break;
+
+		case "love":
+			lineNum = loveNum;
+			parser.activeLines = parser.loveLines;
+			activeText = loveText;
+			ParseLine ();
+			loveNum++;
+			break;
+
+		default:
+			Debug.Log ("Error: No such type of dialogue lines: " + lines);
+			break;
+
+		}
+
+		Debug.Log ("Parsing line: " + (lineNum));
+
+		UpdateUI();
+
+	}
+	void ParseLine(){
+		//Determine which list
+
+
+		Debug.Log ("we are at line " + lineNum + " with this content: " + parser.GetContent (lineNum));
+
+		if (parser.GetKey (lineNum) != "Choice" && parser.GetKey (lineNum) != "endChoice"){
+			//gameManager.inChoice = false;
+			characterName = parser.GetSpeaker (lineNum);
+
+			var text = parser.GetContent (lineNum);
+			//Debug.Log ("In not choice");
+			//if dialogue contains commands
+			if (text == "over")
+			{
+				Debug.Log ("over called in DM");
+				//Debug.Log ("adding satisfaction of " + phone.lines [phone.activeLine].call.satisfaction);
+				/*rm.AddRating (phone.lines [phone.activeLine].call.satisfaction);
+				phone.CloseLine(phone.activeLine);
+				CloseStoryBox ();*/
+				return;
+			}
+
+			dialogue = text;
+
+		}
+
+	}
+
 	void UpdateUI(){
 
 		if (dialogue != "over")
 			activeText.text = dialogue;
 		//else if (dialogue != "THE END")
-			//dialogueBox.text = "The next day";
+		//dialogueBox.text = "The next day";
 		//gameManager.animateStory (dialogue);
 		//nameBox.text = characterName;
 		//characterArt.sprite = Resources.Load<Sprite> ("Sprites/" + characterName + "_avatar");
@@ -125,36 +210,6 @@ public class DialogueManager : MonoBehaviour {
 
 
 	}//UpdateUI
-
-	void ClearTalkingSounds()
-	{
-		/*	customerSound.Stop ();
-		catSound.Stop ();
-		bossSound.Stop ();*/
-	}
-
-	public void AdvanceDialogue(string lines)
-	{
-		switch (lines)
-		{
-		case "NPC":
-			NPCNum++;
-			break;
-		case "spy":
-			spyNum++;
-			break;
-		case "love":
-			loveNum++;
-			break;
-		default:
-			Debug.Log ("Error: No such type of dialogue lines: " + lines);
-			break;
-
-		}
-
-		UpdateUI();
-
-	}
 
 	public void ChangeToDatingColors()
 	{
