@@ -13,11 +13,13 @@ public class GameManager : MonoBehaviour {
 
 	private Slider spySlider;
 	private Slider loveSlider;
+	private GameObject player;
 
 	void Awake (){
 		dm = GameObject.Find ("Dialogue").GetComponent<DialogueManager> ();
 		spySlider = GameObject.Find ("SpySlider").GetComponent<Slider> ();
 		loveSlider = GameObject.Find ("LoveSlider").GetComponent<Slider> ();
+		player = GameObject.Find ("Player");
 
 	}
 
