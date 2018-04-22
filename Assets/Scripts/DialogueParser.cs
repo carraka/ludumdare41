@@ -12,13 +12,13 @@ public class DialogueParser : MonoBehaviour {
 	public struct DialogueLine{
 		public string key;
 		public string content;
-		public string speaker;
+		public string expression;
 		public string[] options;
 
-		public DialogueLine(string Key, string Content, string Speaker){
+		public DialogueLine(string Key, string Content, string Expression){
 			key = Key;
 			content = Content;
-			speaker = Speaker;
+			expression = Expression;
 			options = new string[0];
 		}
 	}
@@ -192,9 +192,9 @@ public class DialogueParser : MonoBehaviour {
 		return "";
 	}
 
-	public string GetSpeaker (int lineNumber){
+	public string GetExpression (int lineNumber){
 		if (lineNumber < activeLines.Count){
-			return activeLines[lineNumber].speaker;
+			return activeLines[lineNumber].expression;
 		}
 		return "";
 	}
