@@ -15,10 +15,13 @@ public class DialogueManager : MonoBehaviour {
 	public Button[] button;
 
 	public string dialogue, loveExpression;
+	private int lineNum;
+
 	public int NPCNum;
 	public int spyNum;
 	public int loveNum;
 	public int withdrawNum;
+	private int chickenNum;
 
 	string[] options;
 	string[] checks;
@@ -45,7 +48,6 @@ public class DialogueManager : MonoBehaviour {
 	public bool gameOver = false;
 	public bool waiting = false;
 
-	private int lineNum;
 
 	void Awake()
 	{
@@ -75,6 +77,7 @@ public class DialogueManager : MonoBehaviour {
 		spyNum = 1;
 		loveNum = 1;
 		withdrawNum = 1;
+		chickenNum = 0;
 		tempCode = "";
 
 	}
@@ -158,7 +161,7 @@ public class DialogueManager : MonoBehaviour {
 			Debug.Log ("after updating UI");
 
 			StartCoroutine("AdvanceDialogue", "NPC");
-			gameManager.checks++;
+			//gameManager.checks++;
 
 			break;
 
@@ -185,7 +188,7 @@ public class DialogueManager : MonoBehaviour {
 			StartCoroutine ("AdvanceDialogue", "withdraw");
 			StartCoroutine ("AdvanceDialogue", "NPC");
 
-			gameManager.checks++;
+			//gameManager.checks++;
 			break;
 
 		case "withdraw":
@@ -195,6 +198,14 @@ public class DialogueManager : MonoBehaviour {
 
 			UpdateUI (spyText);
 			withdrawNum++;
+			break;
+		
+		case "chicken":
+			parser.activeLines = parser.chickenLines;
+			lineNum = chickenNum;
+			ParseLine (false);
+			UpdateUI (NPCText);
+			chickenNum++;
 			break;
 
 		default:
@@ -262,12 +273,6 @@ public class DialogueManager : MonoBehaviour {
 		}
 	}
 
-	public void ExpressDisgust()
-	{
-		NPCText.text = "What are you even saying?";
-		loveInterestImg.sprite = Resources.Load<Sprite> ("Sprites/LoveInterest/li_Disgusted");
-	}
-
 	IEnumerator BriefDisgust()
 	{
 		bool disgusted = false;
@@ -275,7 +280,7 @@ public class DialogueManager : MonoBehaviour {
 		disgusted = true;
 		string tempText = NPCText.text;
 		Sprite tempSprite = loveInterestImg.sprite;
-		NPCText.text = "You sound strange.";
+		NPCText.text = "Want a cough drop?";
 		loveInterestImg.sprite = Resources.Load<Sprite> ("Sprites/LoveInterest/li_Disgusted");
 		yield return new WaitForSeconds (2f);
 

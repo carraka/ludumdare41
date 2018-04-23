@@ -27,6 +27,7 @@ public class DialogueParser : MonoBehaviour {
 	public List<DialogueLine> loveLines;
 	public List<DialogueLine> spyLines;
 	public List<DialogueLine> withdrawLines;
+	public List<DialogueLine> chickenLines;
 
 	public List<DialogueLine> activeLines;
 
@@ -38,18 +39,13 @@ public class DialogueParser : MonoBehaviour {
 		loveLines = new List<DialogueLine> ();
 		spyLines = new List<DialogueLine> ();
 		withdrawLines = new List<DialogueLine> ();
+		chickenLines = new List<DialogueLine> ();
 
-		string file = "Text/NPCText";
-		LoadDialogue (file, NPCLines);
-
-		file = "Text/LoveText";
-		LoadDialogue (file, loveLines);
-
-		file = "Text/SpyText";
-		LoadDialogue (file, spyLines);
-
-		file = "Text/WithdrawText";
-		LoadDialogue (file, withdrawLines);
+		LoadDialogue ("Text/NPCText", NPCLines);
+		LoadDialogue ("Text/LoveText", loveLines);
+		LoadDialogue ("Text/SpyText", spyLines);
+		LoadDialogue ("Text/WithdrawText", withdrawLines);
+		LoadDialogue ("Text/ChickenText", chickenLines);
 
 		activeLines = NPCLines;
 

@@ -26,13 +26,13 @@ public class EndingManager : MonoBehaviour {
 		case "failLove":
 		case "failSpy":
 			audio.PlayOneShot ((AudioClip)Resources.Load ("Audio/Music/ld41_ending_chicken"));
-			illustration.sprite = Resources.Load<Sprite> ("Sprites/Endings/chicken_ending_bw");
+			illustration.sprite = Resources.Load<Sprite> ("Sprites/Endings/chicken_ending");
 			endingText.text = "Agent Tree, you have failed in your mission. Chickens have INVADED and IMPLODED our world. But we should not be surprised by your failure. Apparently you were a CHICKEN all along.";
 			break;
 
 		case "perfSpy":
 		case "succeedSpy":
-			//illustration.sprite = Resources.Load<Sprite>("Sprites/Endings/");
+			illustration.sprite = Resources.Load<Sprite>("Sprites/Endings/lonely_ending");
 			audio.PlayOneShot ((AudioClip)Resources.Load ("Audio/Music/ld41_savetheworld"));
 			endingText.fontSize = 25;
 			endingText.text = "Your mission was a SUCCESS. With the help of the DOSSIER you retrieved, we averted the enemy's plan to IMPLODE the world. You avoided  distractions with AGILITY. You have demonstrated that ROMANCE is INCOMPATIBLE with sneaking. You are to be COMMENDED for your LONELINESS.";
@@ -40,7 +40,7 @@ public class EndingManager : MonoBehaviour {
 
 		case "succeedLove":
 		case "perfLove":
-			//illustration.sprite = Resources.Load<Sprite>("Sprites/Ending/");
+			illustration.sprite = Resources.Load<Sprite>("Sprites/Ending/lover_ending");
 			audio.PlayOneShot ((AudioClip)Resources.Load ("Audio/Music/ld41_ending_romantic"));
 			endingText.text = "You ABANDONED your mission. In doing so, you abandoned the WORLD. Love, it seems, is INCOMPATIBLE with spying. Enjoy your remaining hours, for you guaranteed IMPLOSION for us all.";
 			break;
