@@ -1,3 +1,4 @@
 chicken1|What is that abominable noise?|Disgusted
 chicken2|Are you suffering from avian flu?|Disgusted
-chicken3|So we're speaking bird, huh? QUACK! QUACK! YEAH, not so funny now, is it? QUACK! Okay ... it's kinda funny.|Surprised
+chicken3|So we're speaking bird, huh? QUACK! QUACK! YEAH, not so funny now, is it? QUACK! Okay ... it's kinda funny.~chickenEnding|Surprised
+chicken4|That squawking better not be contagious.|Disgusted

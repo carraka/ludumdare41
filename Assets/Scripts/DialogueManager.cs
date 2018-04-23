@@ -43,7 +43,6 @@ public class DialogueManager : MonoBehaviour {
 	public bool waiting = false;
 
 
-
 	void Awake()
 	{
 
@@ -65,6 +64,7 @@ public class DialogueManager : MonoBehaviour {
 		catSound = GameObject.Find ("Cat").GetComponent<AudioSource> ();
 */
 	}
+
 	void Start () {
 
 		tempDialogue = "";
@@ -133,7 +133,7 @@ public class DialogueManager : MonoBehaviour {
 	public IEnumerator AdvanceDialogue(Lines lines)
 	{
 
-		Debug.Log ("tempCode: " + tempCode);
+		//Debug.Log ("tempCode: " + tempCode);
 		switch (lines)
 		{
 		case Lines.NPC:
@@ -173,7 +173,7 @@ public class DialogueManager : MonoBehaviour {
 			//Debug.Log ("after updating UI");
 
 			StartCoroutine("AdvanceDialogue", Lines.NPC);
-			//gameManager.checks++;
+			gameManager.checks++;
 
 			break;
 
@@ -200,7 +200,7 @@ public class DialogueManager : MonoBehaviour {
 			StartCoroutine ("AdvanceDialogue", Lines.withdraw);
 			StartCoroutine ("AdvanceDialogue", Lines.NPC);
 
-			//gameManager.checks++;
+			gameManager.checks++;
 			break;
 
 		case Lines.withdraw:
@@ -213,8 +213,16 @@ public class DialogueManager : MonoBehaviour {
 		case Lines.chicken:
 			parser.activeLines = parser.chickenLines;
 			ParseLine (Lines.chicken);
+
+			if (gameManager.checks >= 4) {
+				StartCoroutine ("DatingSimEndGame");
+				yield break;
+			}
+
 			UpdateUI (NPCText);
 			chickenNum++;
+			gameManager.checks++;
+
 			break;
 
 		default:
@@ -345,11 +353,25 @@ public class DialogueManager : MonoBehaviour {
 		NPCText.text = parser.NPCLines[t].content;
 		loveExpression = parser.NPCLines [t].expression;
 
+		EnablePressSpaceText ();
+
+
+	}
+
+	public void EnablePressSpaceText()
+	{
+		spyText.text = "Press SPACE to continue.";
+		spyText.color = new Color32 (0, 0, 0, 255);
+		spyText.enabled = true;
+		spyText.fontSize = 20;
+
+		gameOver = true;
 
 	}
 
 	private void CloseDialogueBox()
 	{
+		
 		spyText.enabled = false;
 		loveText.enabled = false;
 		textBG.enabled = false;

@@ -5,6 +5,7 @@ using UnityEngine;
 public class DontDestroyOnLoad : MonoBehaviour {
 
 	private static bool created = false;
+	private static DontDestroyOnLoad thisAudio = null;
 
 	void Awake()
 	{
@@ -12,14 +13,17 @@ public class DontDestroyOnLoad : MonoBehaviour {
 		{
 			DontDestroyOnLoad (this.gameObject);
 			created = true;
-			return;
+			thisAudio = this;
 		}
-		Destroy (this.gameObject);
+		else{
+			Destroy (this.gameObject);
+			thisAudio.Start ();
+		}
 	}
 
 	// Use this for initialization
-	void Start () {
-		
+	public void Start () {
+
 	}
 	
 	// Update is called once per frame

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -44,14 +45,37 @@ public class GameManager : MonoBehaviour
     private int replayFrameNumber;
     private List<replayFrame> replayQueue;
     
+	void OnLevelWasLoaded()
+	{
+		Debug.Log ("loaded");
 
+		if (SceneManager.GetActiveScene().name == "Level 1")
+		{
+			dm = GameObject.Find("Dialogue").GetComponent<DialogueManager>();
+			spySlider = GameObject.Find("SpySlider").GetComponent<Slider>();
+			loveSlider = GameObject.Find("LoveSlider").GetComponent<Slider>();
+			player = GameObject.Find("Player");
+			playerController = player.GetComponent<PlayerController>();
+
+			endingCode = "failNeutral";
+
+			rhythmUI = GameObject.Find("RhythmUI").GetComponent<RhythmUI>();
+			questionMark = GameObject.Find("QuestionMark").GetComponent<QuestionMark>();
+			romanceMusic = GameObject.Find("RomanceMusic").GetComponent<AudioSource>();
+			spyMusic = GameObject.Find("SpyMusic").GetComponent<AudioSource>();
+
+			thisGM.Start ();
+		}
+
+	}
     void Awake()
     {
         if (thisGM != null)
         {
             Destroy(this.gameObject);
-            thisGM.Start();
+           // thisGM.Awake();
             Debug.Log("destroyed duplicate gameManager");
+			return;
         }
         else
         {
@@ -60,19 +84,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("created and protected gameManager");
         }
 
-        dm = GameObject.Find("Dialogue").GetComponent<DialogueManager>();
-        spySlider = GameObject.Find("SpySlider").GetComponent<Slider>();
-        loveSlider = GameObject.Find("LoveSlider").GetComponent<Slider>();
-        player = GameObject.Find("Player");
-        playerController = player.GetComponent<PlayerController>();
 
-        endingCode = "failNeutral";
-
-        rhythmUI = GameObject.Find("RhythmUI").GetComponent<RhythmUI>();
-        questionMark = GameObject.Find("QuestionMark").GetComponent<QuestionMark>();
-
-        romanceMusic = GameObject.Find("RomanceMusic").GetComponent<AudioSource>();
-        spyMusic = GameObject.Find("SpyMusic").GetComponent<AudioSource>();
 
         replayMode = false;
     }
@@ -97,7 +109,7 @@ public class GameManager : MonoBehaviour
         if (replayMode)
             replayQueue = new List<replayFrame>();
 
-        endingCode = "failNeutral";
+        endingCode = "succeedSpy";
 	
 //		SwitchToDatingSimMode ();
 //		checks++;
@@ -106,6 +118,11 @@ public class GameManager : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+		if (checks >= 5)
+		{
+			dm.EnablePressSpaceText ();
+		}
+
         if (replayMode)
         {
             if (replayFrameNumber < replayQueue.Count && rhythmUI.timeToBeat(Time.time) > replayQueue[replayFrameNumber].beat)
@@ -220,6 +237,8 @@ public class GameManager : MonoBehaviour
     {
         if (datingSimMode == false)
         {
+			endingCode = "failNeutral";
+
             spyMusic.volume = 0f;
             romanceMusic.volume = 1f;
 

@@ -24,9 +24,10 @@ public class EndingManager : MonoBehaviour {
 
 		switch (gameManager.endingCode)
 		{
-		case "neutralFail":
+		case "failNeutral":
 		case "failLove":
 		case "failSpy":
+		case "chickenEnding":
 			audio.PlayOneShot ((AudioClip)Resources.Load ("Audio/Music/ld41_ending_chicken"));
 			illustration.sprite = Resources.Load<Sprite> ("Sprites/Endings/chicken_ending");
 			endingText.text = "Agent Tree, you have failed in your mission. Chickens have INVADED and IMPLODED our world. But we should not be surprised by your failure. Apparently you were a CHICKEN all along.";

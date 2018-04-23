@@ -20,3 +20,6 @@ failLove|Finally, it's 5 o'clock! I'll let you know if I get on Etsy. For now, l
 succeedLove|By the way, it's 5 o'clock. Would you like to continue this over coffee? Allow me to walk you out.|Grateful
 |over|
 perfLove|By the way, it's 5 o'clock. How about coming back to my place? I could show you how I make bracelets. Even make you one ...|Grateful
+|over|
+chickenEnding|Right. It's five and I'm outta here. You better come with me. *mutters* To the henhouse.|Disgusted
+|over|

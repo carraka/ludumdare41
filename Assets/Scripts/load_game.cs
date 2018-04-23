@@ -12,6 +12,8 @@ public class load_game : MonoBehaviour {
 
 	//private AudioSource buttonSound;
 
+	private AudioSource menuMusic;
+
 	// Use this for initialization
 	void Awake(){
 		//buttonSound = GameObject.Find ("ButtonSound").GetComponent<AudioSource> ();
@@ -32,7 +34,6 @@ public class load_game : MonoBehaviour {
 		GameObject.Find ("mainmenu_loop").GetComponent<AudioSource> ().Stop ();
 		
 	}
-
 	public void load_credits() {
 		//buttonSound.Play ();
 		SceneManager.LoadScene("credits");
@@ -47,11 +48,10 @@ public class load_game : MonoBehaviour {
 	public void load_title() {
 		//buttonSound.Play ();
 		SceneManager.LoadScene("title");
-		if (SceneManager.GetActiveScene().name == "ending" || SceneManager.GetActiveScene().name == "Level 1")
-		{
-			GameObject.Find ("mainmenu_loop").GetComponent<AudioSource> ().Play ();
 
-		}
+		if (SceneManager.GetActiveScene().name == "Level 1" || SceneManager.GetActiveScene().name == "ending")
+			GameObject.Find ("mainmenu_loop").GetComponent<AudioSource>().Play ();
+		
 	}
 
 	public void Instructions(){
