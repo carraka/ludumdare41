@@ -34,3 +34,7 @@ sysinfo.txt
 *.unitypackage
 Assets/Animations/Crouching & Standing.meta
 Assets/Resources.meta
+Assets/Scenes/ending.unity.meta
+Assets/Sprites.meta~Created QuestionMark prefab; added brief disgust and brief dialogue for clucks; created endings; added audio to title sreen
+Assets/Sprites.meta~HEAD
+Assets/Sprites/Placeholders.meta

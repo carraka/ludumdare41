@@ -84,14 +84,20 @@ public class DialogueManager : MonoBehaviour {
 
 	void Update () {
 		
-		if (Input.GetKeyDown (KeyCode.Space))
-			StartCoroutine("AdvanceDialogue", "NPC");
+/*		if (Input.GetKeyDown (KeyCode.Space))
+			StartCoroutine("AdvanceDialogue", "NPC");*/
 
-		if (Input.GetKeyDown (KeyCode.LeftArrow))
+		if (gameManager.nextDirection == GameManager.GameDirection.spy){
 			StartCoroutine("AdvanceDialogue", "spy");
+			gameManager.nextDirection = GameManager.GameDirection.none;
 
-		if (Input.GetKeyDown (KeyCode.RightArrow))
+		}
+
+		if (gameManager.nextDirection == GameManager.GameDirection.romance)
+		{
 			StartCoroutine("AdvanceDialogue", "love");
+			gameManager.nextDirection = GameManager.GameDirection.none;
+		}
 
 	}
 		
@@ -254,6 +260,27 @@ public class DialogueManager : MonoBehaviour {
 			loveInterestImg.sprite = Resources.Load<Sprite>("Sprites/LoveInterest/li_Neutral");
 
 		}
+	}
+
+	public void ExpressDisgust()
+	{
+		NPCText.text = "What are you even saying?";
+		loveInterestImg.sprite = Resources.Load<Sprite> ("Sprites/LoveInterest/li_Disgusted");
+	}
+
+	IEnumerator BriefDisgust()
+	{
+		bool disgusted = false;
+
+		disgusted = true;
+		string tempText = NPCText.text;
+		Sprite tempSprite = loveInterestImg.sprite;
+		NPCText.text = "You sound strange.";
+		loveInterestImg.sprite = Resources.Load<Sprite> ("Sprites/LoveInterest/li_Disgusted");
+		yield return new WaitForSeconds (2f);
+
+		NPCText.text = tempText;
+		loveInterestImg.sprite = tempSprite;
 	}
 
 	IEnumerator DatingSimEndGame()
