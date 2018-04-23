@@ -1,2 +1,5 @@
-spy1|I'm new here. My name is Bob.|
+spy1|I'm a new technician here. My name's Paul.|
+spy2|Here you go. *hand over fake ID*|
+spy3|Bet that flickering lamp has been bothering you.~failSpy|
+spy4|If you prefer, I can take a coffee break and fix it later.~succeedSpy|
 |over|

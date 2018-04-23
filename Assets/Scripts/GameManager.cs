@@ -8,8 +8,12 @@ public class GameManager : MonoBehaviour {
 
 	public bool datingSimMode = false;
 
+	public string endingCode;
+
 	public int love = 0;
 	public int spy = 0;
+
+	public int checks = 0;
 
 	private Slider spySlider;
 	private Slider loveSlider;
@@ -29,12 +33,13 @@ public class GameManager : MonoBehaviour {
         nextDirection = GameDirection.none;
         cluck = false;
 
+		endingCode = "failNeutral";
 	}
 
 	// Use this for initialization
 	void Start () {
 		SwitchToDatingSimMode ();
-
+		checks++;
 	}
 	
 	// Update is called once per frame
@@ -45,5 +50,9 @@ public class GameManager : MonoBehaviour {
 	void SwitchToDatingSimMode(){
 		datingSimMode = true;
 		dm.ChangeToDatingColors ();
+	}
+
+	public void EndGame(){
+		
 	}
 }

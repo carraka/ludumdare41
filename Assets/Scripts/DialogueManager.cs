@@ -18,6 +18,7 @@ public class DialogueManager : MonoBehaviour {
 	public int NPCNum;
 	public int spyNum;
 	public int loveNum;
+	public int withdrawNum;
 
 	string[] options;
 	string[] checks;
@@ -31,11 +32,16 @@ public class DialogueManager : MonoBehaviour {
 	private Image dialogueBox;
 	private Image textBG;
 	private Image background;
+	private Image loveInterestImg;
+	private Image speechBubble;
+	private Image returnMenuButton;
+	private Image restartButton;
 
 	private Text activeText;
+	private string tempCode;
+	private string tempEnding;
 
 	public bool inCheck = false;
-	bool debugging = false;
 	public bool gameOver = false;
 	public bool waiting = false;
 
@@ -49,8 +55,11 @@ public class DialogueManager : MonoBehaviour {
 		dialogueBox = GameObject.Find ("DialogueBox").GetComponent<Image>();
 		textBG = GameObject.Find ("TextBG").GetComponent<Image>();
 		background = GameObject.Find ("BackgroundImg").GetComponent<Image> ();
-
+		loveInterestImg = GameObject.Find ("LoveInterest").GetComponent<Image> ();
 		gameManager = GameObject.Find ("GameManager").GetComponent<GameManager> ();
+		speechBubble = GameObject.Find ("SpeechBubble").GetComponent<Image> ();
+		returnMenuButton = GameObject.Find ("ReturnMenuButton").GetComponent<Image> ();
+		restartButton = GameObject.Find ("RestartButton").GetComponent<Image> ();
 
 	/*	bossSound = GameObject.Find ("Boss").GetComponent<AudioSource> ();
 		customerSound = GameObject.Find ("Caller").GetComponent<AudioSource> ();
@@ -63,9 +72,10 @@ public class DialogueManager : MonoBehaviour {
 		loveExpression = "";
 		parser = GameObject.Find ("Dialogue").GetComponent<DialogueParser> ();
 		NPCNum = 0;
-		spyNum = 0;
-		loveNum = 0;
-
+		spyNum = 1;
+		loveNum = 1;
+		withdrawNum = 1;
+		tempCode = "";
 
 	}
 	IEnumerator wait_a_bit(){
@@ -74,14 +84,14 @@ public class DialogueManager : MonoBehaviour {
 
 	void Update () {
 		
-		/*	if (Input.GetKeyDown (KeyCode.Space))
-			AdvanceDialogue ("NPC");
+		if (Input.GetKeyDown (KeyCode.Space))
+			StartCoroutine("AdvanceDialogue", "NPC");
 
 		if (Input.GetKeyDown (KeyCode.LeftArrow))
-			AdvanceDialogue ("spy");
-		
+			StartCoroutine("AdvanceDialogue", "spy");
+
 		if (Input.GetKeyDown (KeyCode.RightArrow))
-			AdvanceDialogue ("love");*/
+			StartCoroutine("AdvanceDialogue", "love");
 
 	}
 		
@@ -92,32 +102,93 @@ public class DialogueManager : MonoBehaviour {
 		bossSound.Stop ();*/
 	}
 
-	public void AdvanceDialogue(string lines)
+	public IEnumerator AdvanceDialogue(string lines)
 	{
+
+		Debug.Log ("tempCode: " + tempCode);
 		switch (lines)
 		{
 		case "NPC":
-			lineNum = NPCNum;
 			parser.activeLines = parser.NPCLines;
-			activeText = NPCText;
-			ParseLine ();
-			NPCNum++;
+			NPCNum = parser.SearchStory (tempCode);
+			lineNum = NPCNum;
+
+			ParseLine (false);
+			UpdateUI(NPCText);
 			break;
 
 		case "spy":
+			StartCoroutine ("FlashText", spyText);
+			yield return new WaitForSeconds (0.6f);
+			gameManager.endingCode = tempEnding;
+			//Debug.Log ("after tempEnding");
 			parser.activeLines = parser.spyLines;
 			lineNum = spyNum;
-			activeText = spyText;
-			ParseLine ();
-			spyNum++;
+			ParseLine (true);
+
+			//Debug.Log ("after parsing line");
+
+			if (spyNum == 0)
+			{
+				spyNum++;
+
+				tempCode = parser.GetKey (spyNum - 1);
+			}
+			else
+			{
+				tempCode = parser.GetKey (spyNum - 1);
+
+				spyNum++;
+			}
+
+
+			Debug.Log ("after getting key");
+			if (gameManager.checks >= 4) {
+				StartCoroutine ("DatingSimEndGame");
+				yield break;
+			}
+
+			UpdateUI (spyText);
+			Debug.Log ("after updating UI");
+
+			StartCoroutine("AdvanceDialogue", "NPC");
+			gameManager.checks++;
+
 			break;
 
 		case "love":
-			lineNum = loveNum;
+			StartCoroutine ("FlashText", loveText);
+			yield return new WaitForSeconds (0.6f);
+			gameManager.endingCode = tempEnding;
+
 			parser.activeLines = parser.loveLines;
-			activeText = loveText;
-			ParseLine ();
+			lineNum = loveNum;
+			tempCode = parser.GetKey (loveNum-1);
+			//Debug.Log ("AFTER LOVE, tempCode: " + tempCode);
+			ParseLine (true);
+
+			if (gameManager.checks >= 4)
+			{
+				StartCoroutine("DatingSimEndGame");
+				yield break;
+			}
+
+			UpdateUI (loveText);
 			loveNum++;
+
+			StartCoroutine ("AdvanceDialogue", "withdraw");
+			StartCoroutine ("AdvanceDialogue", "NPC");
+
+			gameManager.checks++;
+			break;
+
+		case "withdraw":
+			parser.activeLines = parser.withdrawLines;
+			lineNum = withdrawNum;
+			ParseLine (false);
+
+			UpdateUI (spyText);
+			withdrawNum++;
 			break;
 
 		default:
@@ -126,40 +197,32 @@ public class DialogueManager : MonoBehaviour {
 
 		}
 
-		Debug.Log ("Parsing line: " + (lineNum));
-
-		UpdateUI();
-
 	}
-	void ParseLine(){
-		//Determine which list
+	void ParseLine(bool watchEnding){
+		
+		//Debug.Log ("we are at line " + lineNum + " with this content: " + parser.GetContent (lineNum));
+
+		loveExpression = parser.GetExpression (lineNum);
+
+		var text = parser.GetContent (lineNum);
 
 
-		Debug.Log ("we are at line " + lineNum + " with this content: " + parser.GetContent (lineNum));
-
-		if (parser.GetKey (lineNum) != "Choice" && parser.GetKey (lineNum) != "endChoice"){
-			loveExpression = parser.GetExpression (lineNum);
-
-			var text = parser.GetContent (lineNum);
-			//Debug.Log ("In not choice");
-			//if dialogue contains commands
-			if (text == "over")
-			{
-				Debug.Log ("over called in DM");
-				//Debug.Log ("adding satisfaction of " + phone.lines [phone.activeLine].call.satisfaction);
-				/*rm.AddRating (phone.lines [phone.activeLine].call.satisfaction);
-				phone.CloseLine(phone.activeLine);
-				CloseStoryBox ();*/
-				return;
-			}
-
-			dialogue = text;
+		if (text.Contains ("~")) {
+			tempEnding = text.Split('~')[1];
+			text = text.Split ('~') [0];
+		}
+		else if (watchEnding)
+		{
+			tempEnding = null;
 
 		}
 
+
+		dialogue = text;
+
 	}
 
-	void UpdateUI(){
+	void UpdateUI(Text activeText){
 
 		if (dialogue != "over")
 			activeText.text = dialogue;
@@ -171,25 +234,93 @@ public class DialogueManager : MonoBehaviour {
 
 		ClearTalkingSounds ();
 
+		UpdateLoveExpression ();
+
+
+	}//UpdateUI
+
+	private void UpdateLoveExpression()
+	{
 		if (loveExpression != null)
 		{
 			//AudioSource talkingSound;
 			//talkingSound = GameObject.Find (loveExpression).GetComponent<AudioSource> ();
 			//talkingSound.Play ();
 
-			//background = Resources.Load ("Sprites/LoveInterest/" + loveExpression);
+			loveInterestImg.sprite = Resources.Load<Sprite>("Sprites/LoveInterest/li_" + loveExpression);
 		}
+		else
+		{
+			loveInterestImg.sprite = Resources.Load<Sprite>("Sprites/LoveInterest/li_Neutral");
+
+		}
+	}
+
+	IEnumerator DatingSimEndGame()
+	{
+		parser.activeLines = parser.NPCLines;
+
+		//Debug.Log ("===HERE IS THE TEMP CODE: " + tempCode);
+		int t = parser.SearchStory (tempCode);
+
+		NPCText.text = parser.NPCLines [t].content;
+		loveExpression = parser.NPCLines [t].expression;
+		UpdateLoveExpression ();
+		CloseDialogueBox ();
+		yield return new WaitForSeconds (3f);
+
+		t = parser.SearchStory (gameManager.endingCode);
+		NPCText.text = parser.NPCLines[t].content;
+		loveExpression = parser.NPCLines [t].expression;
 
 
-	}//UpdateUI
+	}
+
+	private void CloseDialogueBox()
+	{
+		spyText.enabled = false;
+		loveText.enabled = false;
+		textBG.enabled = false;
+
+	}
 
 	public void ChangeToDatingColors()
 	{
 		textBG.enabled = true;
-		dialogueBox.color = new Color32(255, 0, 195,255);
+		dialogueBox.color = new Color32(255, 79, 122,255);
+		UpdateStartingText ();
+		NPCText.enabled = true;
 		spyText.enabled = true;
 		loveText.enabled = true;
+		loveInterestImg.enabled = true;
+		speechBubble.enabled = true;
+		returnMenuButton.sprite = Resources.Load <Sprite>("Sprites/UI/spyguy_button_pink");
+		restartButton.sprite = Resources.Load <Sprite>("Sprites/UI/spyguy_button_pink");
+
+
 		//background = somenewbackground;
+
+	}
+
+	public void UpdateStartingText()
+	{
+		NPCText.text = parser.NPCLines [0].content;
+		spyText.text = parser.spyLines [0].content;
+		loveText.text = parser.loveLines [0].content;
+	}
+
+	public IEnumerator FlashText(Text text)
+	{
+		//Debug.Log ("flashing");
+		Color tempColor = text.color;
+		for (int i = 0; i < 3; i++)
+		{
+			text.color = new Color32 (255, 255, 255, 255); 
+			yield return new WaitForSeconds (0.1f);
+			text.color = tempColor;
+			yield return new WaitForSeconds (0.1f);
+		}
+		//Debug.Log ("finished flashing");
 
 	}
 }

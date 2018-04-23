@@ -1,5 +1,22 @@
-|What are you doing here?|
-spy1|I see. Move along now.|
+|What are you doing here?|Neutral
+spy1|I see. Where is your identification?|Neutral
+spy2|What are you here to fix, exactly?|Neutral
+spy3|Wait, that light only started acting up fifteen minutes ago!|Surprised
+spy4|No, no, go on. I'm just being paranoid.|Embarrassed
 |over|
-love1|I like potato jam too!|
+love1|Thank you! Actually, I made it myself.|Grateful
+love2|You would? I'll have to think about it. You could put your work on Etsy too, you know. Your hat looks good.|Embarrassed
+love3|It's very realistic. Especially when -- may I adjust your hat?|Grateful
+love4|*gently readjusts hat on your head* Especially when it tilts just so.|Flirtatious
 |over|
+succeedSpy|Hm. Finally, it's 5 o'clock! I'm outta here. See you around.|Grateful
+|over|
+failSpy|Anyway, it's 5 o'clock. I'm outta here. You'll have to do your job tomorrow. I'll escort you out.|Neutral
+|over|
+failNeutral|Finally, it's 5 o'clock. I'm outta here. I'll escort you out too.|Neutral
+|over|
+failLove|Finally, it's 5 o'clock! I'll let you know if I get on Etsy. For now, let me walk you out.|Neutral
+|over|
+succeedLove|By the way, it's 5 o'clock. Would you like to continue this over coffee? Allow me to walk you out.|Grateful
+|over|
+perfLove|By the way, it's 5 o'clock. How about coming back to my place? I could show you how I make bracelets. Even make you one ...|Grateful

@@ -1,2 +1,4 @@
-love1|I like the smell of your colon!|
-|over|
+love1|I couldn't help but notice your bracelet's intricate metalwork. Where'd you get it?|
+love2|Have you considered selling your work on Etsy? I would buy your work.~failLove|
+love3|You like my custom-made ... spy costume hat?~succeedLove|
+love4|Go ahead.~perfLove|

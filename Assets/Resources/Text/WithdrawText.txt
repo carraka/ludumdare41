@@ -1,0 +1,5 @@
+withdraw1|Anyway, I should get back to my job.|
+withdraw2|Anyway, I better get back to work.|
+withdraw3|Anyway, I'll let you get back to it.|
+withdraw4|Anyway, I'll talk to you later.|
+|over|

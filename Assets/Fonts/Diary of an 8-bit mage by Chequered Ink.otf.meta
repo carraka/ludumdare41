@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 746ea6b8d5c00e84b85202ffbfe1cf3c
-timeCreated: 1524341229
+guid: cacd5611c3fb11947b89937a8a698575
+timeCreated: 1524456464
 licenseType: Free
 TrueTypeFontImporter:
   externalObjects: {}
@@ -10,9 +10,9 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: Janda Apple Cobbler Solid
+  fontName: Diary of an 8-bit mage
   fontNames:
-  - Janda Apple Cobbler Solid
+  - Diary of an 8-bit mage
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

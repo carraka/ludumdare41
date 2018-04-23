@@ -26,6 +26,7 @@ public class DialogueParser : MonoBehaviour {
 	public List<DialogueLine> NPCLines;
 	public List<DialogueLine> loveLines;
 	public List<DialogueLine> spyLines;
+	public List<DialogueLine> withdrawLines;
 
 	public List<DialogueLine> activeLines;
 
@@ -36,19 +37,19 @@ public class DialogueParser : MonoBehaviour {
 		NPCLines = new List<DialogueLine> ();
 		loveLines = new List<DialogueLine> ();
 		spyLines = new List<DialogueLine> ();
+		withdrawLines = new List<DialogueLine> ();
 
 		string file = "Text/NPCText";
 		LoadDialogue (file, NPCLines);
 
-		//Debug.Log ("NPC loaded");
 		file = "Text/LoveText";
 		LoadDialogue (file, loveLines);
-		//Debug.Log ("love loaded");
 
 		file = "Text/SpyText";
 		LoadDialogue (file, spyLines);
-		//Debug.Log ("spy loaded");
 
+		file = "Text/WithdrawText";
+		LoadDialogue (file, withdrawLines);
 
 		activeLines = NPCLines;
 
@@ -180,7 +181,7 @@ public class DialogueParser : MonoBehaviour {
 				return i;
 			}
 		}
-		Debug.Log ("searched text asset for key [" + code + "], key not found");
+		Debug.Log ("===ERROR: searched text asset for key [" + code + "], key not found");
 		return -1;
 
 	}
@@ -189,21 +190,35 @@ public class DialogueParser : MonoBehaviour {
 		if (lineNumber <activeLines.Count){
 			return activeLines [lineNumber].key;
 		}
-		return "";
+		else
+		{
+			Debug.Log ("===ERROR: did not find key for line number: " + lineNumber);
+			return "";
+
+		}
 	}
 
 	public string GetExpression (int lineNumber){
 		if (lineNumber < activeLines.Count){
 			return activeLines[lineNumber].expression;
 		}
-		return "";
+		{
+			Debug.Log ("===ERROR: did not find expression for line number: " + lineNumber);
+			return "";
+		}
 	}
 
 	public string GetContent(int lineNumber){
+		Debug.Log ("===LOOKING FOR CONTENT AT LINE NUMBER: " + lineNumber + " in " + activeLines);
 		if (lineNumber < activeLines.Count){
 			return activeLines [lineNumber].content;
 		}
-		return "";
+		else
+		{
+			Debug.Log ("===ERROR: did not find content for line number: " + lineNumber);
+			return "";
+
+		}
 	}
 
 	public string[] GetOptions (int lineNumber){
