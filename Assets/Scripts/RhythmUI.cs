@@ -21,6 +21,14 @@ public class RhythmUI : MonoBehaviour {
 
     public arrow [] songArrows;
 
+    public float[] reportTimes;
+    private int nextReport;
+
+    private int reportSpyArrows;
+    private int reportSpyHits;
+    private int reportLoveArrows;
+    private int reportLoveHits;
+
     private Sprite heart;
     private Sprite spy;
     private Sprite redArrow;
@@ -51,8 +59,10 @@ public class RhythmUI : MonoBehaviour {
     private float upLastPressed;
     private float rightLastPressed;
 
-    // Use this for initialization
-    void Start () {
+    private GameManager gameManager;
+
+    private void Awake()
+    {
         RhythmArrowPrefab = (GameObject)Resources.Load("prefabs/RhythmArrow", typeof(GameObject));
 
         GameObject tempGO;
@@ -80,17 +90,92 @@ public class RhythmUI : MonoBehaviour {
         GuideArrowUp = GameObject.Find("GuideArrowUp");
         GuideArrowRight = GameObject.Find("GuideArrowRight");
 
+        spySlider = GameObject.Find("SpySlider").GetComponent<Slider>();
+        loveSlider = GameObject.Find("LoveSlider").GetComponent<Slider>();
+
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
+
+    // Use this for initialization
+    void Start()
+    {
         leftLastPressed = -1;
         downLastPressed = -1;
         upLastPressed = -1;
         rightLastPressed = -1;
 
-        //arrowActions = new Queue<arrowAction>();
+        nextReport = 0;
+        prepareReport(0);
 
-        spySlider = GameObject.Find("SpySlider").GetComponent<Slider>();
-        loveSlider = GameObject.Find("LoveSlider").GetComponent<Slider>();
+        reportSpyArrows = 0;
+        reportSpyHits = 0;
+        reportLoveArrows = 0;
+        reportLoveHits = 0;
+
+        if (reportTimes.Length > 0)
+        {
+            foreach(arrow check in songArrows)
+                if (check.beat <= reportTimes[nextReport])
+                {
+                    if (check.type == arrowType.spy)
+                        reportSpyArrows++;
+                    if (check.type == arrowType.romance)
+                        reportLoveArrows++;
+                }
+        }
 
         StartSong();
+    }
+
+    void prepareReport (int x)
+    {
+        float firstArrow;
+
+        if (reportTimes.Length == 0)
+            return;
+        if (x == 0)
+            firstArrow = -1;
+        else firstArrow = reportTimes[x - 1];
+
+        float lastArrow;
+
+        if (x > reportTimes.Length)
+            lastArrow = songArrows[songArrows.Length - 1].beat;
+        else lastArrow = reportTimes[x];
+
+        reportSpyArrows = 0;
+        reportSpyHits = 0;
+        reportLoveArrows = 0;
+        reportLoveHits = 0;
+
+        foreach (arrow check in songArrows)
+            if (check.beat > firstArrow && check.beat <= lastArrow)
+            {
+                if (check.type == arrowType.spy)
+                    reportSpyArrows++;
+                if (check.type == arrowType.romance)
+                    reportLoveArrows++;
+            }
+
+        // Debug.Log("report " + x + " prepared, " + reportSpyArrows + " Spy Arrows, " + reportLoveArrows + " Romance Arrows");
+    }
+
+    void makeReport ()
+    {
+        float spyPercent = (float)reportSpyHits / reportSpyArrows;
+        float lovePercent = (float)reportLoveHits / reportLoveArrows;
+
+        if (spyPercent > Mathf.Max(.5f, lovePercent))
+            gameManager.nextDirection = GameManager.GameDirection.spy;
+        else if (lovePercent > Mathf.Max(.5f, spyPercent))
+            gameManager.nextDirection = GameManager.GameDirection.romance;
+        else gameManager.nextDirection = GameManager.GameDirection.chicken;
+
+        // Debug.Log("Report " + nextReport + " result: " + gameManager.nextDirection);
+
+        nextReport++;
+        prepareReport(nextReport);
+
     }
 
     public void StartSong()
@@ -278,10 +363,24 @@ public class RhythmUI : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
                 pressedRight = true;
 
+            bool leftHeld = pressedLeft;
+            bool downHeld = pressedDown;
+            bool upHeld = pressedUp;
+            bool rightHeld = pressedRight;
+
+            if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) && (currentBeat - leftLastPressed) <= goodThreshold)
+                leftHeld = true;
+            if ((Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)) && (currentBeat - downLastPressed) <= goodThreshold)
+                downHeld = true;
+            if ((Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) && (currentBeat - upLastPressed) <= goodThreshold)
+                upHeld = true;
+            if ((Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) && (currentBeat - rightLastPressed) <= goodThreshold)
+                rightHeld = true;
+
             int x = lastResolved + 1;
             bool checkMoreArrows = true;
 
-            arrowState command = arrowState.normal;
+//            arrowState command = arrowState.normal;
 
             do
             {
@@ -368,20 +467,6 @@ public class RhythmUI : MonoBehaviour {
 
                         if (successCount > 0)
                         {
-                            bool leftHeld = pressedLeft;
-                            bool downHeld = pressedDown;
-                            bool upHeld = pressedUp;
-                            bool rightHeld = pressedRight;
-
-                            if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) && (currentBeat - leftLastPressed) <= goodThreshold)
-                                leftHeld = true;
-                            if ((Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)) && (currentBeat - downLastPressed) <= goodThreshold)
-                                downHeld = true;
-                            if ((Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) && (currentBeat - upLastPressed) <= goodThreshold)
-                                upHeld = true;
-                            if ((Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) && (currentBeat - rightLastPressed) <= goodThreshold)
-                                rightHeld = true;
-
                             int spiesFound = 0;
                             int spiesHit = 0;
                             int loveFound = 0;
@@ -444,7 +529,7 @@ public class RhythmUI : MonoBehaviour {
 
                             spySlider.value = Mathf.Max(spySlider.value - 3, 0);
                             loveSlider.value = Mathf.Max(loveSlider.value - 3, 0);
-                            //chicken sound
+                            gameManager.cluck = true;
                         }
                         else if (success == true)
                         {
@@ -475,10 +560,12 @@ public class RhythmUI : MonoBehaviour {
                                 case (arrowType.spy):
                                     spySlider.value = Mathf.Min(spySlider.value + points * successCount, 100);
                                     loveSlider.value = Mathf.Max(loveSlider.value - 3 * successCount, 0);
+                                    reportSpyHits += successCount;
                                     break;
                                 case (arrowType.romance):
                                     loveSlider.value = Mathf.Min(loveSlider.value + points * successCount, 100);
                                     spySlider.value = Mathf.Max(spySlider.value - 3 * successCount, 0);
+                                    reportLoveHits += successCount;
                                     break;
                             }
                         }
@@ -512,6 +599,9 @@ public class RhythmUI : MonoBehaviour {
             if (pressedDown) downLastPressed = currentBeat;
             if (pressedUp) upLastPressed = currentBeat;
             if (pressedRight) rightLastPressed = currentBeat;
+
+            if (nextReport < reportTimes.Length && currentBeat > reportTimes[nextReport] + missThreshold)
+                makeReport();
         }
     }
 }

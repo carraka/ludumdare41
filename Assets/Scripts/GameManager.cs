@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour {
 
 	public int checks = 0;
 
+    private bool annoyedNPC = false;
+
 	private Slider spySlider;
 	private Slider loveSlider;
 	private GameObject player;
@@ -33,23 +35,86 @@ public class GameManager : MonoBehaviour {
         nextDirection = GameDirection.none;
         cluck = false;
 
-		endingCode = "failNeutral";
+        DontDestroyOnLoad(this.gameObject);
+
+        endingCode = "failNeutral";
 	}
 
 	// Use this for initialization
 	void Start () {
-		SwitchToDatingSimMode ();
-		checks++;
+//		SwitchToDatingSimMode ();
+//		checks++;
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		
+	void Update ()
+    {
+        if (datingSimMode == true)
+            return;
+
+        if (cluck)
+        {
+            if (annoyedNPC == true)
+                SwitchToDatingSimMode();
+            else
+            {
+                annoyedNPC = true;
+                // activate question mark
+                cluck = false;
+            }
+        }
+
+		if (nextDirection != GameDirection.none)
+        {
+            checks++;
+
+            if (nextDirection == GameDirection.chicken)
+            {
+                if (annoyedNPC == true)
+                    SwitchToDatingSimMode();
+                else
+                {
+                    annoyedNPC = true;
+                    // activate question mark
+
+                }
+            }
+
+            if (nextDirection == GameDirection.romance)
+                SwitchToDatingSimMode();
+
+            if (nextDirection == GameDirection.spy)
+            {
+                switch (checks)
+                {
+                    case 1: //move to cubicle
+                        break;
+                    case 2:
+                        // duck behind file cabinet
+                        break;
+                    case 3:
+                        // move to other cubicle
+                        break;
+                    case 4:
+                        //duck behind potted plant
+                        break;
+                    case 5:
+                        //move to file cabinet
+                        break;
+                }
+            }
+
+            nextDirection = GameDirection.none;
+        }
 	}
 
-	void SwitchToDatingSimMode(){
-		datingSimMode = true;
-		dm.ChangeToDatingColors ();
+	void SwitchToDatingSimMode()
+    {
+        if (datingSimMode == false)
+        {
+            datingSimMode = true;
+            dm.ChangeToDatingColors();
+        }
 	}
 
 	public void EndGame(){
