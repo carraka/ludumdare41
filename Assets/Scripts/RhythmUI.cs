@@ -61,6 +61,13 @@ public class RhythmUI : MonoBehaviour {
 
     private GameManager gameManager;
 
+    private AudioSource audio;
+
+    private AudioClip clucks1;
+    private AudioClip clucks2;
+    private AudioClip squawk1;
+    private AudioClip squawk2;
+
     private void Awake()
     {
         RhythmArrowPrefab = (GameObject)Resources.Load("prefabs/RhythmArrow", typeof(GameObject));
@@ -95,11 +102,18 @@ public class RhythmUI : MonoBehaviour {
 
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
+        audio = this.gameObject.GetComponent<AudioSource>();
 
-}
+        clucks1 = (AudioClip)Resources.Load("Audio/SFX/clucks1");
+        clucks2 = (AudioClip)Resources.Load("Audio/SFX/clucks2");
+        squawk1 = (AudioClip)Resources.Load("Audio/SFX/squawk1");
+        squawk2 = (AudioClip)Resources.Load("Audio/SFX/squawk2");
 
-// Use this for initialization
-void Start()
+
+    }
+
+    // Use this for initialization
+    void Start()
     {
         leftLastPressed = -1;
         downLastPressed = -1;
@@ -152,11 +166,19 @@ void Start()
             gameManager.nextDirection = GameManager.GameDirection.spy;
         else if (lovePercent > Mathf.Max(.5f, spyPercent))
             gameManager.nextDirection = GameManager.GameDirection.romance;
-        else gameManager.nextDirection = GameManager.GameDirection.chicken;
+        else
+        {
+            gameManager.nextDirection = GameManager.GameDirection.chicken;
+            audio.volume = 2f;
+            if (Random.value < .5)
+                audio.PlayOneShot(clucks1);
+            else
+                audio.PlayOneShot(clucks2);
+        }
 
-        // Debug.Log("Report " + nextReport + " result: " + gameManager.nextDirection);
+            // Debug.Log("Report " + nextReport + " result: " + gameManager.nextDirection);
 
-        nextReport++;
+            nextReport++;
         prepareReport(nextReport);
 
     }
@@ -512,7 +534,14 @@ void Start()
 
                             spySlider.value = Mathf.Max(spySlider.value - 3, 0);
                             loveSlider.value = Mathf.Max(loveSlider.value - 3, 0);
+
                             gameManager.cluck = true;
+                            audio.volume = 1f;
+                            if (Random.value < .5)
+                                audio.PlayOneShot(squawk1);
+                            else
+                                audio.PlayOneShot(squawk2);
+
                         }
                         else if (success == true)
                         {
