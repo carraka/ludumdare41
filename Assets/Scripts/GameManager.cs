@@ -25,17 +25,29 @@ public class GameManager : MonoBehaviour {
     public GameDirection nextDirection;
     public bool cluck;
 
+    private static bool GMcreated = false;
 
-	void Awake (){
-		dm = GameObject.Find ("Dialogue").GetComponent<DialogueManager> ();
+	void Awake ()
+    {
+        if (GMcreated)
+        {
+            Destroy(this.gameObject);
+            Debug.Log("destroyed duplicate game manager");
+        }
+        else
+        {
+            DontDestroyOnLoad(this.gameObject);
+            Debug.Log("Game manager loaded and protected");
+            GMcreated = true;
+        }
+
+        dm = GameObject.Find ("Dialogue").GetComponent<DialogueManager> ();
 		spySlider = GameObject.Find ("SpySlider").GetComponent<Slider> ();
 		loveSlider = GameObject.Find ("LoveSlider").GetComponent<Slider> ();
 		player = GameObject.Find ("Player");
 
         nextDirection = GameDirection.none;
         cluck = false;
-
-        DontDestroyOnLoad(this.gameObject);
 
         endingCode = "failNeutral";
 	}
