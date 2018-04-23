@@ -124,6 +124,8 @@ public class GameManager : MonoBehaviour
                 frameData.beat = rhythmUI.timeToBeat(Time.time);
                 frameData.cluck = cluck;
                 frameData.nextDirection = nextDirection;
+
+				replayQueue.Add (frameData);
             }
         }
 

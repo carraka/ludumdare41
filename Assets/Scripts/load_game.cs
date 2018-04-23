@@ -29,6 +29,7 @@ public class load_game : MonoBehaviour {
 	public void load_level() {
 		//buttonSound.Play ();
 		SceneManager.LoadScene("Level 1");
+		GameObject.Find ("mainmenu_loop").GetComponent<AudioSource> ().Stop ();
 		
 	}
 
@@ -36,12 +37,21 @@ public class load_game : MonoBehaviour {
 		//buttonSound.Play ();
 		SceneManager.LoadScene("credits");
 
+		if (SceneManager.GetActiveScene().name == "ending" || SceneManager.GetActiveScene().name == "Level 1")
+		{
+			GameObject.Find ("mainmenu_loop").GetComponent<AudioSource> ().Play ();
+
+		}
 	}
 
 	public void load_title() {
 		//buttonSound.Play ();
 		SceneManager.LoadScene("title");
+		if (SceneManager.GetActiveScene().name == "ending" || SceneManager.GetActiveScene().name == "Level 1")
+		{
+			GameObject.Find ("mainmenu_loop").GetComponent<AudioSource> ().Play ();
 
+		}
 	}
 
 	public void Instructions(){

@@ -42,8 +42,6 @@ public class DialogueManager : MonoBehaviour {
 	public bool gameOver = false;
 	public bool waiting = false;
 
-    public GameManager.GameDirection nextDirection;
-    public bool cluck;
 
 
 	void Awake()
