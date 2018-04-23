@@ -97,10 +97,14 @@ public class GameManager : MonoBehaviour
         if (replayMode)
             replayQueue = new List<replayFrame>();
 
-    }
-
-    // Update is called once per frame
-    void Update()
+        endingCode = "failNeutral";
+	
+//		SwitchToDatingSimMode ();
+//		checks++;
+	}
+	
+	// Update is called once per frame
+	void Update ()
     {
         if (replayMode)
         {

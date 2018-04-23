@@ -205,7 +205,7 @@ public class DialogueParser : MonoBehaviour {
 	}
 
 	public string GetContent(int lineNumber){
-		Debug.Log ("===LOOKING FOR CONTENT AT LINE NUMBER: " + lineNumber + " in " + activeLines);
+		//Debug.Log ("===LOOKING FOR CONTENT AT LINE NUMBER: " + lineNumber + " in " + activeLines);
 		if (lineNumber < activeLines.Count){
 			return activeLines [lineNumber].content;
 		}

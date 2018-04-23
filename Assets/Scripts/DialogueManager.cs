@@ -12,21 +12,12 @@ public class DialogueManager : MonoBehaviour {
 	private AudioSource bossSound;
 	private AudioSource catSound;*/
 
-	public Button[] button;
+	public enum Lines {NPC, spy, love, withdraw, chicken};
 
-	public string dialogue, loveExpression;
-	private int lineNum;
+	public string tempDialogue, loveExpression;
+	private string tempCode, tempEnding, storedEnding;
 
-	public int NPCNum;
-	public int spyNum;
-	public int loveNum;
-	public int withdrawNum;
-	private int chickenNum;
-
-	string[] options;
-	string[] checks;
-
-	List <Button> buttons = new List <Button>();
+	public int NPCNum, spyNum, loveNum, withdrawNum, chickenNum;
 
 	private Text spyText;
 	private Text loveText;
@@ -41,8 +32,6 @@ public class DialogueManager : MonoBehaviour {
 	private Image restartButton;
 
 	private Text activeText;
-	private string tempCode;
-	private string tempEnding;
 
 	public bool inCheck = false;
 	public bool gameOver = false;
@@ -73,11 +62,11 @@ public class DialogueManager : MonoBehaviour {
 	}
 	void Start () {
 
-		dialogue = "";
+		tempDialogue = "";
 		loveExpression = "";
 		parser = GameObject.Find ("Dialogue").GetComponent<DialogueParser> ();
 		NPCNum = 0;
-		spyNum = 1;
+		spyNum = 0;
 		loveNum = 1;
 		withdrawNum = 1;
 		chickenNum = 0;
@@ -90,18 +79,18 @@ public class DialogueManager : MonoBehaviour {
 
 	void Update () {
 		
-/*		if (Input.GetKeyDown (KeyCode.Space))
-			StartCoroutine("AdvanceDialogue", "NPC");*/
+		if (Input.GetKeyDown (KeyCode.Space))
+			StartCoroutine("AdvanceDialogue", Lines.chicken);
 
-		if (gameManager.nextDirection == GameManager.GameDirection.spy){
-			StartCoroutine("AdvanceDialogue", "spy");
+		if (gameManager.nextDirection == GameManager.GameDirection.spy || Input.GetKeyDown(KeyCode.LeftArrow)){
+			StartCoroutine("AdvanceDialogue", Lines.spy);
 			gameManager.nextDirection = GameManager.GameDirection.none;
 
 		}
 
-		if (gameManager.nextDirection == GameManager.GameDirection.romance)
+		if (gameManager.nextDirection == GameManager.GameDirection.romance|| Input.GetKeyDown(KeyCode.RightArrow))
 		{
-			StartCoroutine("AdvanceDialogue", "love");
+			StartCoroutine("AdvanceDialogue", Lines.love);
 			gameManager.nextDirection = GameManager.GameDirection.none;
 		}
 
@@ -114,99 +103,89 @@ public class DialogueManager : MonoBehaviour {
 		bossSound.Stop ();*/
 	}
 
-	public IEnumerator AdvanceDialogue(string lines)
+	public IEnumerator AdvanceDialogue(Lines lines)
 	{
 
 		Debug.Log ("tempCode: " + tempCode);
 		switch (lines)
 		{
-		case "NPC":
+		case Lines.NPC:
 			parser.activeLines = parser.NPCLines;
 			NPCNum = parser.SearchStory (tempCode);
-			lineNum = NPCNum;
-
-			ParseLine (false);
+			ParseLine (Lines.NPC);
 			UpdateUI(NPCText);
 			break;
 
-		case "spy":
+		case Lines.spy:
+			parser.activeLines = parser.spyLines;
 			StartCoroutine ("FlashText", spyText);
 			yield return new WaitForSeconds (0.6f);
-			gameManager.endingCode = tempEnding;
-			//Debug.Log ("after tempEnding");
-			parser.activeLines = parser.spyLines;
-			lineNum = spyNum;
-			ParseLine (true);
 
+			if (storedEnding == "spy")
+				gameManager.endingCode = tempEnding;
+			//Debug.Log ("after tempEnding");
+
+			ParseLine (Lines.spy);
 			//Debug.Log ("after parsing line");
 
 			if (spyNum == 0)
-			{
-				spyNum++;
-
-				tempCode = parser.GetKey (spyNum - 1);
-			}
+				tempCode = "spy0";
 			else
-			{
-				tempCode = parser.GetKey (spyNum - 1);
+				tempCode = parser.GetKey (spyNum-1);
 
-				spyNum++;
-			}
+			spyNum++;
 
 
-			Debug.Log ("after getting key");
+			//Debug.Log ("after getting key");
 			if (gameManager.checks >= 4) {
 				StartCoroutine ("DatingSimEndGame");
 				yield break;
 			}
 
 			UpdateUI (spyText);
-			Debug.Log ("after updating UI");
+			//Debug.Log ("after updating UI");
 
-			StartCoroutine("AdvanceDialogue", "NPC");
+			StartCoroutine("AdvanceDialogue", Lines.NPC);
 			//gameManager.checks++;
 
 			break;
 
-		case "love":
+		case Lines.love:
+			parser.activeLines = parser.loveLines;
 			StartCoroutine ("FlashText", loveText);
 			yield return new WaitForSeconds (0.6f);
-			gameManager.endingCode = tempEnding;
 
-			parser.activeLines = parser.loveLines;
-			lineNum = loveNum;
-			tempCode = parser.GetKey (loveNum-1);
+			if (storedEnding == "love")
+				gameManager.endingCode = tempEnding;
+
+			tempCode = parser.GetKey (loveNum - 1);
 			//Debug.Log ("AFTER LOVE, tempCode: " + tempCode);
-			ParseLine (true);
+			ParseLine (Lines.love);
 
-			if (gameManager.checks >= 4)
-			{
-				StartCoroutine("DatingSimEndGame");
+			if (gameManager.checks >= 4) {
+				StartCoroutine ("DatingSimEndGame");
 				yield break;
 			}
 
 			UpdateUI (loveText);
 			loveNum++;
 
-			StartCoroutine ("AdvanceDialogue", "withdraw");
-			StartCoroutine ("AdvanceDialogue", "NPC");
+			StartCoroutine ("AdvanceDialogue", Lines.withdraw);
+			StartCoroutine ("AdvanceDialogue", Lines.NPC);
 
 			//gameManager.checks++;
 			break;
 
-		case "withdraw":
+		case Lines.withdraw:
 			parser.activeLines = parser.withdrawLines;
-			lineNum = withdrawNum;
-			ParseLine (false);
-
+			ParseLine (Lines.withdraw);
 			UpdateUI (spyText);
 			withdrawNum++;
 			break;
 		
-		case "chicken":
+		case Lines.chicken:
 			parser.activeLines = parser.chickenLines;
-			lineNum = chickenNum;
-			ParseLine (false);
+			ParseLine (Lines.chicken);
 			UpdateUI (NPCText);
 			chickenNum++;
 			break;
@@ -218,40 +197,73 @@ public class DialogueManager : MonoBehaviour {
 		}
 
 	}
-	void ParseLine(bool watchEnding){
+	void ParseLine(Lines line){
 		
 		//Debug.Log ("we are at line " + lineNum + " with this content: " + parser.GetContent (lineNum));
+		string text = "";
+		bool tempEndingEnabled = false;
+		bool instantEndingEnabled = false;
 
-		loveExpression = parser.GetExpression (lineNum);
+		switch (line)
+		{
+		case Lines.NPC:
+			loveExpression = parser.GetExpression (NPCNum);
+			text = parser.GetContent (NPCNum);
+			break;
 
-		var text = parser.GetContent (lineNum);
+		case Lines.spy:
+			text = parser.GetContent (spyNum);
+			tempEndingEnabled = true;
+			storedEnding = "spy";
+			break;
 
+		case Lines.love:
+			text = parser.GetContent (loveNum);
+			storedEnding = "love";
+			break;
 
-		if (text.Contains ("~")) {
+		case Lines.withdraw:
+			text = parser.GetContent (withdrawNum);
+			break;
+
+		case Lines.chicken:
+			loveExpression = parser.GetExpression (chickenNum);
+			text = parser.GetContent (chickenNum);
+			break;
+
+		default: 
+			Debug.Log ("====ERROR: NO SUCH ENUM LINES EXISTS");
+			break;
+		}
+
+		//Split text by ~ if it contains ending instructions
+		if (text.Contains ("~")) 
+		{
 			tempEnding = text.Split('~')[1];
 			text = text.Split ('~') [0];
+
+			//if ending should be changed as soon as dialgoue is accessed
+			if (instantEndingEnabled)
+			{
+				gameManager.endingCode = tempEnding;
+			}
 		}
-		else if (watchEnding)
+		else if (tempEndingEnabled) //if ending should only be saved for if the option is selected again
 		{
 			tempEnding = null;
-
 		}
 
 
-		dialogue = text;
+		tempDialogue = text;
 
 	}
 
-	void UpdateUI(Text activeText){
+	void UpdateUI(Text activeText)
+	{
 
-		if (dialogue != "over")
-			activeText.text = dialogue;
-		//else if (dialogue != "THE END")
-		//dialogueBox.text = "The next day";
-		//gameManager.animateStory (dialogue);
-		//nameBox.text = loveExpression;
-		//characterArt.sprite = Resources.Load<Sprite> ("Sprites/" + loveExpression + "_avatar");
-
+		if (tempDialogue != "over")
+			activeText.text = tempDialogue;
+		
 		ClearTalkingSounds ();
 
 		UpdateLoveExpression ();
@@ -276,7 +288,7 @@ public class DialogueManager : MonoBehaviour {
 		}
 	}
 
-	IEnumerator BriefDisgust()
+	public IEnumerator BriefDisgust()
 	{
 		bool disgusted = false;
 

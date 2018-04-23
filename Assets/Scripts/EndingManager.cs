@@ -9,6 +9,8 @@ public class EndingManager : MonoBehaviour {
 	private Image illustration;
 	private Text endingText;
 
+
+
 	// Use this for initialization
 	void Awake () {
 		gameManager = GameObject.Find ("GameManager").GetComponent<GameManager> ();

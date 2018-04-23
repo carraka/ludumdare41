@@ -1,4 +1,4 @@
-|What are you doing here?|Neutral
+spy0|What are you doing here?|Neutral
 spy1|I see. Where is your identification?|Neutral
 spy2|What are you here to fix, exactly?|Neutral
 spy3|Wait, that light only started acting up fifteen minutes ago!|Surprised
