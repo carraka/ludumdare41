@@ -2,11 +2,15 @@
 using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class DialogueManager : MonoBehaviour {
 
 	private DialogueParser parser;
 	private GameManager gameManager;
+	public GameManager.GameDirection nextDirection;
+
+	public bool cluck;
 
 	/*private AudioSource customerSound;
 	private AudioSource bossSound;
@@ -30,6 +34,7 @@ public class DialogueManager : MonoBehaviour {
 	private Image speechBubble;
 	private Image returnMenuButton;
 	private Image restartButton;
+	private Image playerSprite;
 
 	private Text activeText;
 
@@ -43,6 +48,7 @@ public class DialogueManager : MonoBehaviour {
 
 	void Awake()
 	{
+
 		spyText = GameObject.Find ("SpyText").GetComponent<Text> ();
 		loveText = GameObject.Find ("LoveText").GetComponent<Text> ();
 		NPCText = GameObject.Find ("NPCText").GetComponent<Text> ();
@@ -54,6 +60,7 @@ public class DialogueManager : MonoBehaviour {
 		speechBubble = GameObject.Find ("SpeechBubble").GetComponent<Image> ();
 		returnMenuButton = GameObject.Find ("ReturnMenuButton").GetComponent<Image> ();
 		restartButton = GameObject.Find ("RestartButton").GetComponent<Image> ();
+		playerSprite = GameObject.Find ("playerSprite").GetComponent<Image> ();
 
 	/*	bossSound = GameObject.Find ("Boss").GetComponent<AudioSource> ();
 		customerSound = GameObject.Find ("Caller").GetComponent<AudioSource> ();
@@ -78,20 +85,42 @@ public class DialogueManager : MonoBehaviour {
 	}
 
 	void Update () {
-		
-		if (Input.GetKeyDown (KeyCode.Space))
-			StartCoroutine("AdvanceDialogue", Lines.chicken);
 
-		if (gameManager.nextDirection == GameManager.GameDirection.spy || Input.GetKeyDown(KeyCode.LeftArrow)){
-			StartCoroutine("AdvanceDialogue", Lines.spy);
-			gameManager.nextDirection = GameManager.GameDirection.none;
 
+		if (gameOver)
+		{
+			if (Input.GetKey(KeyCode.Space))
+			{
+				SceneManager.LoadScene("ending");
+			}
 		}
 
-		if (gameManager.nextDirection == GameManager.GameDirection.romance|| Input.GetKeyDown(KeyCode.RightArrow))
+		if (gameManager.datingSimMode)
 		{
-			StartCoroutine("AdvanceDialogue", Lines.love);
-			gameManager.nextDirection = GameManager.GameDirection.none;
+
+			if (nextDirection == GameManager.GameDirection.chicken)
+			{
+				StartCoroutine("AdvanceDialogue", Lines.chicken);
+				nextDirection = GameManager.GameDirection.none;
+			}
+
+			if (nextDirection == GameManager.GameDirection.spy){
+				StartCoroutine("AdvanceDialogue", Lines.spy);
+				nextDirection = GameManager.GameDirection.none;
+
+			}
+
+			if (nextDirection == GameManager.GameDirection.romance)
+			{
+				StartCoroutine("AdvanceDialogue", Lines.love);
+				nextDirection = GameManager.GameDirection.none;
+			}
+		}
+
+		if (cluck)
+		{
+			StartCoroutine ("BriefDisgust");
+			cluck = false;
 		}
 
 	}
@@ -290,9 +319,7 @@ public class DialogueManager : MonoBehaviour {
 
 	public IEnumerator BriefDisgust()
 	{
-		bool disgusted = false;
 
-		disgusted = true;
 		string tempText = NPCText.text;
 		Sprite tempSprite = loveInterestImg.sprite;
 		NPCText.text = "Want a cough drop?";
@@ -341,6 +368,7 @@ public class DialogueManager : MonoBehaviour {
 		loveText.enabled = true;
 		loveInterestImg.enabled = true;
 		speechBubble.enabled = true;
+		playerSprite.enabled = true;
 		returnMenuButton.sprite = Resources.Load <Sprite>("Sprites/UI/spyguy_button_pink");
 		restartButton.sprite = Resources.Load <Sprite>("Sprites/UI/spyguy_button_pink");
 

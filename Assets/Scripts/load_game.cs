@@ -28,7 +28,7 @@ public class load_game : MonoBehaviour {
 
 	public void load_level() {
 		//buttonSound.Play ();
-		SceneManager.LoadScene("level1");
+		SceneManager.LoadScene("Level 1");
 		
 	}
 
