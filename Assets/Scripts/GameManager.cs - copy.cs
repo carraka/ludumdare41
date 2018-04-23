@@ -3,28 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
-{
-    private DialogueManager dm;
+public class GameManager : MonoBehaviour {
+	private DialogueManager dm;
 
-    public bool datingSimMode = false;
+	public bool datingSimMode = false;
 
-    public string endingCode;
+	public string endingCode;
 
-    public int love = 0;
-    public int spy = 0;
+	public int love = 0;
+	public int spy = 0;
 
-    public int checks = 0;
+	public int checks = 0;
 
     private bool annoyedNPC = false;
 
-    private Slider spySlider;
-    private Slider loveSlider;
-    private GameObject player;
+	private Slider spySlider;
+	private Slider loveSlider;
+	private GameObject player;
     private PlayerController playerController;
     private RhythmUI rhythmUI;
 
-    public enum GameDirection { none, spy, chicken, romance };
+    public enum GameDirection { none, spy, chicken, romance};
     public GameDirection nextDirection;
     public bool cluck;
 
@@ -33,7 +32,7 @@ public class GameManager : MonoBehaviour
 
     public static bool GMCreated = false;
 
-    void Awake()
+    void Awake ()
     {
         if (GMCreated)
         {
@@ -47,10 +46,10 @@ public class GameManager : MonoBehaviour
             Debug.Log("created and protected gameManager");
         }
 
-        dm = GameObject.Find("Dialogue").GetComponent<DialogueManager>();
-        spySlider = GameObject.Find("SpySlider").GetComponent<Slider>();
-        loveSlider = GameObject.Find("LoveSlider").GetComponent<Slider>();
-        player = GameObject.Find("Player");
+        dm = GameObject.Find ("Dialogue").GetComponent<DialogueManager> ();
+		spySlider = GameObject.Find ("SpySlider").GetComponent<Slider> ();
+		loveSlider = GameObject.Find ("LoveSlider").GetComponent<Slider> ();
+		player = GameObject.Find ("Player");
         playerController = player.GetComponent<PlayerController>();
 
         endingCode = "failNeutral";
@@ -62,9 +61,8 @@ public class GameManager : MonoBehaviour
 
     }
 
-    // Use this for initialization
-    void Start()
-    {
+	// Use this for initialization
+	void Start () {
         romanceMusic.Play();
         spyMusic.Play();
 
@@ -81,7 +79,7 @@ public class GameManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void Update ()
     {
         if (datingSimMode == true)
             return;
@@ -98,7 +96,7 @@ public class GameManager : MonoBehaviour
             cluck = false;
         }
 
-        if (nextDirection != GameDirection.none)
+		if (nextDirection != GameDirection.none)
         {
             checks++;
 
@@ -160,9 +158,9 @@ public class GameManager : MonoBehaviour
 
             nextDirection = GameDirection.none;
         }
-    }
+	}
 
-    void SwitchToDatingSimMode()
+	void SwitchToDatingSimMode()
     {
         if (datingSimMode == false)
         {
@@ -174,8 +172,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void EndGame()
-    {
-
-    }
+	public void EndGame(){
+		
+	}
 }
