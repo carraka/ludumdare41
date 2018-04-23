@@ -32,19 +32,31 @@ public class GameManager : MonoBehaviour
     private AudioSource romanceMusic;
     private AudioSource spyMusic;
 
-    public static bool GMCreated = false;
+    private static GameManager thisGM = null;
+
+    private struct replayFrame
+    {
+        float beat;
+        bool cluck;
+        GameDirection nextDirection;
+    }
+    private bool replayMode;
+    private int replayFrameNumber;
+    Queue<replayFrame> replayQueue;
+    
 
     void Awake()
     {
-        if (GMCreated)
+        if (thisGM != null)
         {
             Destroy(this.gameObject);
+            thisGM.Start();
             Debug.Log("destroyed duplicate gameManager");
         }
         else
         {
+            thisGM = this;
             DontDestroyOnLoad(this.gameObject);
-            GMCreated = true;
             Debug.Log("created and protected gameManager");
         }
 
@@ -80,13 +92,32 @@ public class GameManager : MonoBehaviour
 
         checks = 0;
 
+        replayFrameNumber = 0;
+        if (!replayMode)
+            replayQueue = new Queue<replayFrame>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (replayMode)
+        {
+
+        }else
+        {
+
+        }
         if (datingSimMode == true)
+        {
+            dm.cluck = cluck;
+            cluck = false;
+
+            dm.nextDirection = nextDirection;
+            nextDirection = GameDirection.none;
             return;
+        }
+
 
         if (cluck)
         {
@@ -173,6 +204,8 @@ public class GameManager : MonoBehaviour
 
             datingSimMode = true;
             dm.ChangeToDatingColors();
+
+            Destroy(player);
         }
     }
 
