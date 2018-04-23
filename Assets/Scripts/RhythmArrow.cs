@@ -20,6 +20,9 @@ public class RhythmArrow : MonoBehaviour {
         parentUI = transform.parent.gameObject.GetComponent<RhythmUI>();
         state = RhythmUI.arrowState.normal;
 
+        Material newMaterial = new Material(this.gameObject.GetComponent<Image>().material);
+
+        this.gameObject.GetComponent<Image>().material = newMaterial;
     }
 
     public void DoStuff(RhythmUI.arrowState command, RhythmUI.arrowType commandType, Sprite newSprite = null)
@@ -42,7 +45,7 @@ public class RhythmArrow : MonoBehaviour {
             this.gameObject.transform.localPosition = destination;
         }
 
-        Debug.Log("Arrow " + reference + " " + command);
+//        Debug.Log("Arrow " + reference + " " + command);
 
     }
 
@@ -57,13 +60,8 @@ public class RhythmArrow : MonoBehaviour {
             destination.y = 208f - 64f * (beat - currentBeat);
             this.gameObject.transform.localPosition = destination;
 
-/*            if (destination.y > 272)
-            {
-                // miss
+            if (destination.y > 272)
                 Destroy(this.gameObject);
-                return;
-            }*/
-
         } else
         {   if (state == RhythmUI.arrowState.ClearGood)
             {
@@ -74,12 +72,7 @@ public class RhythmArrow : MonoBehaviour {
             float transparancy = 1 - ((Time.time - stateOffset) / clearTime);
             byte alpha = (byte) Mathf.FloorToInt(255f * transparancy);
 
-            Material fadeout = new Material (this.gameObject.GetComponent<Image>().material);
-
-            fadeout.SetColor("_Color", new Color32(255, 255, 255, alpha));
-
-
-            this.gameObject.GetComponent<Image>().material = fadeout;
+            this.gameObject.GetComponent<Image>().material.SetColor("_Color", new Color32(255, 255, 255, alpha));
 
             if (Time.time - stateOffset > clearTime)
                 Destroy(this.gameObject);

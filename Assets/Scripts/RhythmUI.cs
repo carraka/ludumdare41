@@ -28,8 +28,8 @@ public class RhythmUI : MonoBehaviour {
     private Sprite guideArrow;
     private Sprite guideArrowBlink;
 
-
-    //    public Queue<arrowAction> arrowActions; //actions for arrows to read
+    private Slider loveSlider;
+    private Slider spySlider;
 
     private bool playing;
     private float songStartTime;
@@ -86,6 +86,9 @@ public class RhythmUI : MonoBehaviour {
         rightLastPressed = -1;
 
         //arrowActions = new Queue<arrowAction>();
+
+        spySlider = GameObject.Find("SpySlider").GetComponent<Slider>();
+        loveSlider = GameObject.Find("LoveSlider").GetComponent<Slider>();
 
         StartSong();
     }
@@ -294,9 +297,17 @@ public class RhythmUI : MonoBehaviour {
                             if (eachChild.gameObject.GetComponent<RhythmArrow>().reference == x)
                                 eachChild.gameObject.GetComponent<RhythmArrow>().DoStuff(arrowState.ClearMiss, arrowType.none);
                     }
-                    // lower spy
-                    // lower romance
-                    // cluck like a chicken
+
+                    switch (songArrows[x].type)
+                    {
+                        case (arrowType.spy):
+                            spySlider.value = Mathf.Max(spySlider.value - 3, 0);
+                            break;
+                        case (arrowType.romance):
+                            loveSlider.value = Mathf.Max(loveSlider.value - 3, 0);
+                            break;
+                    }
+
                     lastResolved = x;
                     x++;
                 }
@@ -430,16 +441,46 @@ public class RhythmUI : MonoBehaviour {
                         {
                             clearType = arrowType.none;
                             precision = arrowState.ClearMiss;
+
+                            spySlider.value = Mathf.Max(spySlider.value - 3, 0);
+                            loveSlider.value = Mathf.Max(loveSlider.value - 3, 0);
+                            //chicken sound
                         }
                         else if (success == true)
                         {
+                            int points = 0;
                             if (Mathf.Abs(beat - currentBeat) <= goodThreshold)
+                            {
                                 precision = arrowState.ClearGood;
+                                points = 3;
+                            }
                             else if (Mathf.Abs(beat - currentBeat) <= OKThreshold)
+                            {
                                 precision = arrowState.ClearOK;
+                                points = 1;
+                            }
                             else if (Mathf.Abs(beat - currentBeat) <= poorThreshold)
+                            {
                                 precision = arrowState.ClearPoor;
-                            else precision = arrowState.ClearMiss;
+                                points = 0;
+                            }
+                            else
+                            {
+                                precision = arrowState.ClearMiss;
+                                points = -3;
+                            }
+
+                            switch (clearType)
+                            {
+                                case (arrowType.spy):
+                                    spySlider.value = Mathf.Min(spySlider.value + points * successCount, 100);
+                                    loveSlider.value = Mathf.Max(loveSlider.value - 3 * successCount, 0);
+                                    break;
+                                case (arrowType.romance):
+                                    loveSlider.value = Mathf.Min(loveSlider.value + points * successCount, 100);
+                                    spySlider.value = Mathf.Max(spySlider.value - 3 * successCount, 0);
+                                    break;
+                            }
                         }
 
                         foreach (Transform eachChild in transform)

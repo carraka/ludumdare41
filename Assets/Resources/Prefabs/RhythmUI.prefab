@@ -1,0 +1,1412 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1828117778458280}
+  m_IsPrefabParent: 1
+--- !u!1 &1044369609834588
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4655557915860508}
+  - component: {fileID: 82163177866235460}
+  m_Layer: 5
+  m_Name: RomanceMusic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1142460404485722
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 224006009295650478}
+  - component: {fileID: 222552241678442302}
+  - component: {fileID: 114209738511443242}
+  m_Layer: 5
+  m_Name: GuideArrowDown
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1363509276160832
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 224791918406482660}
+  - component: {fileID: 222316730027656068}
+  - component: {fileID: 114276601376192382}
+  m_Layer: 5
+  m_Name: GuideArrowLeft
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1432387714725142
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 224055796471382108}
+  - component: {fileID: 222701105575480086}
+  - component: {fileID: 114669071318114750}
+  m_Layer: 5
+  m_Name: GuideArrowRight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1462279976757536
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 224957000049197284}
+  - component: {fileID: 222201337016652768}
+  - component: {fileID: 114473813572746374}
+  m_Layer: 5
+  m_Name: GuideArrowUp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1552418297795224
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4904587270894464}
+  - component: {fileID: 82563784151928662}
+  m_Layer: 5
+  m_Name: SpyMusic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1828117778458280
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 224745763805752474}
+  - component: {fileID: 114426316511008414}
+  - component: {fileID: 222962827983771204}
+  - component: {fileID: 114071863515231440}
+  m_Layer: 5
+  m_Name: RhythmUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4655557915860508
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1044369609834588}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.000015258789, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 224745763805752474}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4904587270894464
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1552418297795224}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 224745763805752474}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &82163177866235460
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1044369609834588}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 33f6ec981e2205d4db45d3258c5b9554, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+--- !u!82 &82563784151928662
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1552418297795224}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 9294c639d11c81a4fa32fd853390962d, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+--- !u!114 &114071863515231440
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1828117778458280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: 37ea7d0a6cfb4134ebc9eadea8110d29, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!114 &114209738511443242
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1142460404485722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: 0e8fe469667d39943896bbb25e378a5d, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!114 &114276601376192382
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1363509276160832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: 0e8fe469667d39943896bbb25e378a5d, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!114 &114426316511008414
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1828117778458280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d2a40fe16ed8ea4b92534b3143bf0c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offsetFirstBeat: 0.15
+  BPM: 112
+  goodThreshold: 0.065
+  OKThreshold: 0.125
+  poorThreshold: 0.25
+  missThreshold: 0.5
+  songArrows:
+  - beat: 9
+    direction: 1
+    type: 1
+  - beat: 9
+    direction: 3
+    type: 2
+  - beat: 10
+    direction: 0
+    type: 1
+  - beat: 10
+    direction: 2
+    type: 2
+  - beat: 11
+    direction: 3
+    type: 1
+  - beat: 11
+    direction: 0
+    type: 2
+  - beat: 12
+    direction: 2
+    type: 1
+  - beat: 13
+    direction: 3
+    type: 2
+  - beat: 14
+    direction: 2
+    type: 2
+  - beat: 15
+    direction: 0
+    type: 2
+  - beat: 16
+    direction: 1
+    type: 2
+  - beat: 17
+    direction: 0
+    type: 1
+  - beat: 18
+    direction: 1
+    type: 1
+  - beat: 18
+    direction: 2
+    type: 2
+  - beat: 18
+    direction: 3
+    type: 2
+  - beat: 19
+    direction: 0
+    type: 2
+  - beat: 19
+    direction: 1
+    type: 2
+  - beat: 19
+    direction: 2
+    type: 1
+  - beat: 20
+    direction: 3
+    type: 1
+  - beat: 22
+    direction: 2
+    type: 2
+  - beat: 22
+    direction: 3
+    type: 2
+  - beat: 23
+    direction: 0
+    type: 2
+  - beat: 23
+    direction: 1
+    type: 2
+  - beat: 25
+    direction: 1
+    type: 1
+  - beat: 26
+    direction: 0
+    type: 1
+  - beat: 26
+    direction: 1
+    type: 2
+  - beat: 26
+    direction: 3
+    type: 2
+  - beat: 27
+    direction: 0
+    type: 2
+  - beat: 27
+    direction: 2
+    type: 2
+  - beat: 27
+    direction: 3
+    type: 1
+  - beat: 28
+    direction: 2
+    type: 1
+  - beat: 30
+    direction: 1
+    type: 2
+  - beat: 30
+    direction: 3
+    type: 2
+  - beat: 31
+    direction: 0
+    type: 2
+  - beat: 31
+    direction: 2
+    type: 2
+  - beat: 33
+    direction: 0
+    type: 1
+  - beat: 33
+    direction: 3
+    type: 1
+  - beat: 34
+    direction: 0
+    type: 2
+  - beat: 34.5
+    direction: 3
+    type: 1
+  - beat: 35
+    direction: 1
+    type: 1
+  - beat: 35
+    direction: 2
+    type: 2
+  - beat: 36
+    direction: 0
+    type: 2
+  - beat: 36.5
+    direction: 3
+    type: 1
+  - beat: 37
+    direction: 2
+    type: 1
+  - beat: 37
+    direction: 0
+    type: 2
+  - beat: 37
+    direction: 1
+    type: 2
+  - beat: 38.5
+    direction: 3
+    type: 1
+  - beat: 39
+    direction: 0
+    type: 1
+  - beat: 41
+    direction: 2
+    type: 1
+  - beat: 41
+    direction: 1
+    type: 1
+  - beat: 42
+    direction: 3
+    type: 2
+  - beat: 42.5
+    direction: 1
+    type: 1
+  - beat: 43
+    direction: 3
+    type: 1
+  - beat: 43
+    direction: 2
+    type: 2
+  - beat: 44
+    direction: 3
+    type: 2
+  - beat: 44.5
+    direction: 1
+    type: 1
+  - beat: 45
+    direction: 3
+    type: 1
+  - beat: 45
+    direction: 2
+    type: 2
+  - beat: 45
+    direction: 0
+    type: 2
+  - beat: 46.5
+    direction: 2
+    type: 1
+  - beat: 47
+    direction: 3
+    type: 1
+  - beat: 49
+    direction: 0
+    type: 1
+  - beat: 49
+    direction: 3
+    type: 1
+  - beat: 50
+    direction: 1
+    type: 2
+  - beat: 50.5
+    direction: 2
+    type: 1
+  - beat: 51
+    direction: 0
+    type: 1
+  - beat: 51
+    direction: 3
+    type: 2
+  - beat: 52
+    direction: 1
+    type: 2
+  - beat: 52.5
+    direction: 2
+    type: 1
+  - beat: 53
+    direction: 3
+    type: 1
+  - beat: 53
+    direction: 0
+    type: 2
+  - beat: 53
+    direction: 1
+    type: 2
+  - beat: 54.5
+    direction: 2
+    type: 1
+  - beat: 55
+    direction: 0
+    type: 1
+  - beat: 57
+    direction: 2
+    type: 1
+  - beat: 57
+    direction: 1
+    type: 1
+  - beat: 58
+    direction: 1
+    type: 2
+  - beat: 58.5
+    direction: 2
+    type: 1
+  - beat: 59
+    direction: 3
+    type: 1
+  - beat: 59
+    direction: 0
+    type: 2
+  - beat: 60
+    direction: 1
+    type: 2
+  - beat: 60.5
+    direction: 2
+    type: 1
+  - beat: 61
+    direction: 1
+    type: 1
+  - beat: 61
+    direction: 3
+    type: 2
+  - beat: 61
+    direction: 0
+    type: 2
+  - beat: 62.5
+    direction: 2
+    type: 1
+  - beat: 63
+    direction: 0
+    type: 1
+  - beat: 73
+    direction: 1
+    type: 1
+  - beat: 73
+    direction: 0
+    type: 2
+  - beat: 74
+    direction: 0
+    type: 1
+  - beat: 74
+    direction: 3
+    type: 2
+  - beat: 75
+    direction: 2
+    type: 1
+  - beat: 75
+    direction: 3
+    type: 2
+  - beat: 75
+    direction: 0
+    type: 2
+  - beat: 76
+    direction: 0
+    type: 1
+  - beat: 76.5
+    direction: 3
+    type: 2
+  - beat: 77
+    direction: 1
+    type: 1
+  - beat: 77
+    direction: 0
+    type: 2
+  - beat: 78
+    direction: 0
+    type: 1
+  - beat: 78
+    direction: 3
+    type: 2
+  - beat: 79
+    direction: 2
+    type: 1
+  - beat: 79
+    direction: 0
+    type: 2
+  - beat: 79
+    direction: 3
+    type: 2
+  - beat: 80
+    direction: 0
+    type: 1
+  - beat: 80.5
+    direction: 3
+    type: 2
+  - beat: 81
+    direction: 1
+    type: 1
+  - beat: 81
+    direction: 2
+    type: 2
+  - beat: 82
+    direction: 3
+    type: 1
+  - beat: 82
+    direction: 1
+    type: 2
+  - beat: 83
+    direction: 1
+    type: 1
+  - beat: 83
+    direction: 2
+    type: 2
+  - beat: 83
+    direction: 3
+    type: 2
+  - beat: 84
+    direction: 0
+    type: 1
+  - beat: 84.5
+    direction: 3
+    type: 2
+  - beat: 85
+    direction: 1
+    type: 1
+  - beat: 85
+    direction: 2
+    type: 2
+  - beat: 86
+    direction: 3
+    type: 1
+  - beat: 86
+    direction: 0
+    type: 2
+  - beat: 87
+    direction: 1
+    type: 1
+  - beat: 87
+    direction: 3
+    type: 2
+  - beat: 88
+    direction: 0
+    type: 1
+  - beat: 88
+    direction: 2
+    type: 2
+  - beat: 89
+    direction: 1
+    type: 1
+  - beat: 89
+    direction: 3
+    type: 2
+  - beat: 90
+    direction: 3
+    type: 1
+  - beat: 90
+    direction: 0
+    type: 2
+  - beat: 91
+    direction: 2
+    type: 1
+  - beat: 91
+    direction: 3
+    type: 2
+  - beat: 91
+    direction: 0
+    type: 2
+  - beat: 92
+    direction: 3
+    type: 1
+  - beat: 92.5
+    direction: 2
+    type: 2
+  - beat: 93
+    direction: 1
+    type: 1
+  - beat: 93
+    direction: 0
+    type: 2
+  - beat: 94
+    direction: 3
+    type: 1
+  - beat: 94
+    direction: 2
+    type: 2
+  - beat: 95
+    direction: 2
+    type: 1
+  - beat: 95
+    direction: 3
+    type: 2
+  - beat: 95
+    direction: 1
+    type: 2
+  - beat: 96
+    direction: 3
+    type: 1
+  - beat: 96.5
+    direction: 1
+    type: 2
+  - beat: 97
+    direction: 0
+    type: 1
+  - beat: 97
+    direction: 2
+    type: 2
+  - beat: 98
+    direction: 2
+    type: 1
+  - beat: 98
+    direction: 1
+    type: 2
+  - beat: 99
+    direction: 3
+    type: 1
+  - beat: 99
+    direction: 2
+    type: 2
+  - beat: 99
+    direction: 1
+    type: 2
+  - beat: 100
+    direction: 2
+    type: 1
+  - beat: 100.5
+    direction: 3
+    type: 2
+  - beat: 101
+    direction: 0
+    type: 1
+  - beat: 101
+    direction: 1
+    type: 2
+  - beat: 102
+    direction: 2
+    type: 1
+  - beat: 102
+    direction: 0
+    type: 2
+  - beat: 103
+    direction: 3
+    type: 1
+  - beat: 103
+    direction: 2
+    type: 2
+  - beat: 104
+    direction: 2
+    type: 1
+  - beat: 104
+    direction: 1
+    type: 2
+  - beat: 105
+    direction: 1
+    type: 1
+  - beat: 106
+    direction: 0
+    type: 1
+  - beat: 106
+    direction: 3
+    type: 2
+  - beat: 107
+    direction: 2
+    type: 1
+  - beat: 107
+    direction: 1
+    type: 2
+  - beat: 108
+    direction: 0
+    type: 1
+  - beat: 108
+    direction: 3
+    type: 2
+  - beat: 109
+    direction: 1
+    type: 2
+  - beat: 110
+    direction: 0
+    type: 1
+  - beat: 110
+    direction: 3
+    type: 2
+  - beat: 111
+    direction: 2
+    type: 1
+  - beat: 111
+    direction: 1
+    type: 2
+  - beat: 112
+    direction: 0
+    type: 1
+  - beat: 112
+    direction: 3
+    type: 2
+  - beat: 114
+    direction: 0
+    type: 1
+  - beat: 114
+    direction: 1
+    type: 2
+  - beat: 115
+    direction: 2
+    type: 1
+  - beat: 115
+    direction: 0
+    type: 2
+  - beat: 116
+    direction: 0
+    type: 1
+  - beat: 116
+    direction: 1
+    type: 2
+  - beat: 117
+    direction: 0
+    type: 2
+  - beat: 118
+    direction: 1
+    type: 1
+  - beat: 118
+    direction: 3
+    type: 2
+  - beat: 119
+    direction: 2
+    type: 1
+  - beat: 119
+    direction: 0
+    type: 2
+  - beat: 120
+    direction: 0
+    type: 1
+  - beat: 120
+    direction: 3
+    type: 2
+  - beat: 122
+    direction: 3
+    type: 1
+  - beat: 122
+    direction: 1
+    type: 2
+  - beat: 123
+    direction: 2
+    type: 1
+  - beat: 123
+    direction: 3
+    type: 2
+  - beat: 124
+    direction: 3
+    type: 1
+  - beat: 124
+    direction: 1
+    type: 2
+  - beat: 125
+    direction: 3
+    type: 2
+  - beat: 126
+    direction: 3
+    type: 1
+  - beat: 126
+    direction: 1
+    type: 2
+  - beat: 127
+    direction: 2
+    type: 1
+  - beat: 127
+    direction: 3
+    type: 2
+  - beat: 128
+    direction: 3
+    type: 1
+  - beat: 128
+    direction: 0
+    type: 2
+  - beat: 130
+    direction: 3
+    type: 1
+  - beat: 130
+    direction: 0
+    type: 2
+  - beat: 131
+    direction: 2
+    type: 1
+  - beat: 131
+    direction: 3
+    type: 2
+  - beat: 132
+    direction: 3
+    type: 1
+  - beat: 132
+    direction: 0
+    type: 2
+  - beat: 133
+    direction: 3
+    type: 2
+  - beat: 134
+    direction: 1
+    type: 1
+  - beat: 134
+    direction: 0
+    type: 2
+  - beat: 135
+    direction: 2
+    type: 1
+  - beat: 135
+    direction: 3
+    type: 2
+  - beat: 136
+    direction: 1
+    type: 1
+  - beat: 136
+    direction: 2
+    type: 2
+  - beat: 137
+    direction: 0
+    type: 1
+  - beat: 137
+    direction: 1
+    type: 1
+  - beat: 137
+    direction: 3
+    type: 2
+  - beat: 138
+    direction: 3
+    type: 1
+  - beat: 138
+    direction: 2
+    type: 2
+  - beat: 139
+    direction: 0
+    type: 1
+  - beat: 139
+    direction: 3
+    type: 2
+  - beat: 139
+    direction: 1
+    type: 2
+  - beat: 140
+    direction: 2
+    type: 1
+  - beat: 140.5
+    direction: 3
+    type: 2
+  - beat: 141
+    direction: 1
+    type: 2
+  - beat: 142
+    direction: 2
+    type: 2
+  - beat: 143
+    direction: 3
+    type: 2
+  - beat: 143
+    direction: 0
+    type: 2
+  - beat: 144.5
+    direction: 1
+    type: 2
+  - beat: 145
+    direction: 3
+    type: 1
+  - beat: 145
+    direction: 2
+    type: 1
+  - beat: 145
+    direction: 0
+    type: 2
+  - beat: 146
+    direction: 1
+    type: 1
+  - beat: 146
+    direction: 3
+    type: 2
+  - beat: 147
+    direction: 0
+    type: 1
+  - beat: 147
+    direction: 2
+    type: 2
+  - beat: 147
+    direction: 3
+    type: 2
+  - beat: 148
+    direction: 2
+    type: 1
+  - beat: 148.5
+    direction: 3
+    type: 2
+  - beat: 149
+    direction: 1
+    type: 2
+  - beat: 150
+    direction: 2
+    type: 2
+  - beat: 151
+    direction: 0
+    type: 2
+  - beat: 152
+    direction: 3
+    type: 2
+  - beat: 153
+    direction: 3
+    type: 1
+  - beat: 153
+    direction: 1
+    type: 1
+  - beat: 153
+    direction: 0
+    type: 2
+  - beat: 154
+    direction: 0
+    type: 1
+  - beat: 154
+    direction: 3
+    type: 2
+  - beat: 155
+    direction: 1
+    type: 1
+  - beat: 155
+    direction: 2
+    type: 2
+  - beat: 155
+    direction: 3
+    type: 2
+  - beat: 156
+    direction: 2
+    type: 1
+  - beat: 156.5
+    direction: 0
+    type: 2
+  - beat: 157
+    direction: 3
+    type: 2
+  - beat: 158
+    direction: 2
+    type: 2
+  - beat: 159
+    direction: 1
+    type: 2
+  - beat: 159
+    direction: 0
+    type: 2
+  - beat: 160.5
+    direction: 3
+    type: 2
+  - beat: 161
+    direction: 0
+    type: 1
+  - beat: 161
+    direction: 2
+    type: 1
+  - beat: 161
+    direction: 1
+    type: 2
+  - beat: 162
+    direction: 1
+    type: 1
+  - beat: 162
+    direction: 2
+    type: 2
+  - beat: 163
+    direction: 3
+    type: 1
+  - beat: 163
+    direction: 2
+    type: 2
+  - beat: 163
+    direction: 0
+    type: 2
+  - beat: 164
+    direction: 2
+    type: 1
+  - beat: 164.5
+    direction: 3
+    type: 2
+  - beat: 165
+    direction: 0
+    type: 2
+  - beat: 166
+    direction: 3
+    type: 2
+  - beat: 167
+    direction: 1
+    type: 2
+  - beat: 168
+    direction: 2
+    type: 2
+  - beat: 169
+    direction: 0
+    type: 1
+  - beat: 169
+    direction: 3
+    type: 1
+  - beat: 169
+    direction: 1
+    type: 2
+  - beat: 169
+    direction: 2
+    type: 2
+--- !u!114 &114473813572746374
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1462279976757536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: 0e8fe469667d39943896bbb25e378a5d, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!114 &114669071318114750
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1432387714725142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: 0e8fe469667d39943896bbb25e378a5d, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &222201337016652768
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1462279976757536}
+--- !u!222 &222316730027656068
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1363509276160832}
+--- !u!222 &222552241678442302
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1142460404485722}
+--- !u!222 &222701105575480086
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1432387714725142}
+--- !u!222 &222962827983771204
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1828117778458280}
+--- !u!224 &224006009295650478
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1142460404485722}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 224745763805752474}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 96, y: -32}
+  m_SizeDelta: {x: 60, y: 60}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &224055796471382108
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1432387714725142}
+  m_LocalRotation: {x: 0, y: -0, z: 0.7071068, w: -0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 224745763805752474}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 270}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 224, y: -32}
+  m_SizeDelta: {x: 60, y: 60}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &224745763805752474
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1828117778458280}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 224791918406482660}
+  - {fileID: 224006009295650478}
+  - {fileID: 224957000049197284}
+  - {fileID: 224055796471382108}
+  - {fileID: 4904587270894464}
+  - {fileID: 4655557915860508}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 512, y: -240}
+  m_SizeDelta: {x: 256, y: 480}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &224791918406482660
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1363509276160832}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 224745763805752474}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 32, y: -32}
+  m_SizeDelta: {x: 60, y: 60}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &224957000049197284
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1462279976757536}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 224745763805752474}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 160, y: -32}
+  m_SizeDelta: {x: 60, y: 60}
+  m_Pivot: {x: 0.5, y: 0.5}

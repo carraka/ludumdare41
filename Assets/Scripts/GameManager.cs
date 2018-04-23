@@ -15,11 +15,19 @@ public class GameManager : MonoBehaviour {
 	private Slider loveSlider;
 	private GameObject player;
 
+    public enum GameDirection { none, spy, chicken, romance};
+    public GameDirection nextDirection;
+    public bool cluck;
+
+
 	void Awake (){
 		dm = GameObject.Find ("Dialogue").GetComponent<DialogueManager> ();
 		spySlider = GameObject.Find ("SpySlider").GetComponent<Slider> ();
 		loveSlider = GameObject.Find ("LoveSlider").GetComponent<Slider> ();
 		player = GameObject.Find ("Player");
+
+        nextDirection = GameDirection.none;
+        cluck = false;
 
 	}
 

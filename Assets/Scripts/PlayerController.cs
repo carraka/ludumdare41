@@ -6,141 +6,199 @@ public class PlayerController : MonoBehaviour {
 
 	private float tileWidth;
 	private float tileHeight;
+    private float xOffset;
+    private float yOffset;
 
-	public Vector2[] tileTargetList;
-	public Vector2 tileTarget;
+    private Vector2 moveStart;
+    private Vector2 moveDest;
+    private float moveStartTime;
+    private float moveTime;
 
-	public Vector2[][] spyMoves;
+    private Vector2 spyLocation;
+
+	[System.Serializable]
+	public struct Movement{
+        public enum action { wait = 0, move, crouchLeft, crouchRight };
+        public action command;
+		public float duration;
+        public Vector2 moveDest;
+	}
+
+	public Movement[] introMoves;
+
+    private Queue<Movement> actionQueue;
+    private Movement currentAction;
+    private float currentActionStart;
 
 	public float speed;
 	public int nextTargetIndex = 0;
 
 	private Animator animator;
-	private Rigidbody2D rb;
+
+    //private bool newMovement;
+	private bool moving;
 
 	// Use this for initialization
 	void Start () {
 		animator = this.GetComponent<Animator> ();
-		rb = GetComponent<Rigidbody2D> ();
 
 		tileWidth = 64;
 		tileHeight = 64;
 
-		MovePlayer ("move", "6,1");
-		MovePlayer ("crouch", "left");
+        xOffset = -160;
+        yOffset = 128;
+
+        spyLocation = TiletoWorld(new Vector2(0, 4));
+
+        moveDest = spyLocation;
+        moveStart = spyLocation;
+        transform.localPosition = spyLocation;
+
+        //newMovement = false;
+		moving = false;
+
+        actionQueue = new Queue<Movement>();
+
+        foreach(Movement action in introMoves)
+        {
+            actionQueue.Enqueue(action);
+        }
+    
+//		MoveManager (spyMoves);
+
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	//	MoveToTarget ();
-		checkDistance();
+/*    void TempMoveManager()
+    {
+        if (Input.GetKeyDown(KeyCode.W) & tileTarget.y > 0)
+        {
+            tileTarget.y--;
+            newMovement = true;
+        }
+        if (Input.GetKeyDown(KeyCode.A) & tileTarget.x > 0)
+        {
+            tileTarget.x--;
+            newMovement = true;
+        }
+        if (Input.GetKeyDown(KeyCode.S) & tileTarget.y < 4)
+        {
+            tileTarget.y++;
+            newMovement = true;
+        }
+        if (Input.GetKeyDown(KeyCode.D) && tileTarget.x < 5)
+        {
+            tileTarget.x++;
+            newMovement = true;
+        }
 
+
+        if (newMovement)
+        {
+            moveStart = new Vector2 (transform.localPosition.x, transform.localPosition.y);
+            moveDest = TiletoWorld(tileTarget);
+            Debug.Log(moveDest);
+            moveStartTime = Time.time;
+            moveTime = 1f;
+
+            newMovement = false;
+            moving = true;
+
+            animateWalking(moveDest - moveStart);
+        }
+    } */
+
+    void MoveSpy()
+    {
+        if (moving)
+        {
+            float percentage = Mathf.Min((Time.time - moveStartTime) / moveTime, 1f);
+            spyLocation = (percentage * moveDest) + ((1 - percentage) * moveStart);
+            transform.localPosition = spyLocation;
+
+            if (percentage == 1f)
+                moving = false;
+        }
+
+        if (moving == false)
+        {
+            animator.SetBool("walkingUp", false);
+            animator.SetBool("walkingRight", false);
+            animator.SetBool("walkingLeft", false);
+            animator.SetBool("walkingDown", false);
+        }
+    }
+    // Update is called once per frame
+
+    void Update () {
+        MoveManager();
 	}
 
-	public void MovePlayer(string command, string value){
-		if (command == "move"){
-			string[] coordinates = value.Split(',');
-			MoveToTarget (int.Parse (coordinates [0]), int.Parse (coordinates [1]));
+	public void MoveManager()
+	{
+        if (Time.time - currentActionStart > currentAction.duration) //if finished with current action
+        {
+            if (actionQueue.Count > 0)
+            {
+                currentAction = actionQueue.Dequeue();              // pull next action if available
+                currentActionStart = Time.time;
+            }
+            else
+            {
+                currentAction.command = Movement.action.wait;       // wait if no actions in queue
+                currentAction.duration = 0f;
+                currentActionStart = Time.time;
+            }
 
-		}
-		else if (command == "crouch"){
-			if (value == "left")
-				animator.SetBool ("crouchLeft", true);
-			else
-				animator.SetBool ("crouchRight", true);
-		}
-		else {
-			Debug.Log ("Error: Invalid command: " + command);
-		}
+            MovePlayer(currentAction);
+        }
 
+        MoveSpy();
+	}
 
-	}//Move Player
+	public void MovePlayer(Movement currentAction)
+    {
+        animator.SetBool("crouchLeft", false);
+        animator.SetBool("crouchRight", false);
+        animator.SetBool("walkingUp", false);
+        animator.SetBool("walkingRight", false);
+        animator.SetBool("walkingLeft", false);
+        animator.SetBool("walkingDown", false);
+
+        switch (currentAction.command)
+        {
+            case (Movement.action.crouchLeft): animator.SetBool("crouchLeft", true); break;
+            case (Movement.action.crouchRight): animator.SetBool("crouchRight", true); break;
+            case (Movement.action.move):
+                moveStart = spyLocation;
+                moveDest = TiletoWorld(currentAction.moveDest);
+                moveStartTime = Time.time;
+                moveTime = currentAction.duration;
+
+                moving = true;
+
+                animateWalking(moveDest - moveStart);
+
+                break;
+            default: break;
+        }
+    }//Move Player
 
 	public Vector3 TiletoWorld(Vector2 tileInput)
 	{
-		Vector3 worldPos = new Vector3(tileInput.x * tileWidth, Camera.main.pixelHeight - tileInput.y * tileHeight - tileHeight);
+		Vector3 worldPos = new Vector3(tileInput.x * tileWidth + xOffset, yOffset - tileInput.y * tileHeight);
 
 		return worldPos;
 	}
 
-	public void MoveToTarget(int targetx, int targety)
+	void animateWalking (Vector2 direction)
 	{
-
-		bool doneMoving = false;
-
-		tileTarget.x = targetx;
-		tileTarget.y = targety;
-
-		//Travel toward target
-		if (!doneMoving) {
-			if (tileTarget != null) {
-
-				rb.velocity = Vector3.Normalize (TiletoWorld(tileTarget) - transform.position) * speed;
-
-				Debug.Log (rb.velocity.x + ", " + rb.velocity.y); 
-				//Debug.Log (this.transform.localRotation);
-				Vector3 targ = TiletoWorld(tileTarget);
-				targ.z = 0f;
-				//Debug.Log (transform.position);
-				//Debug.Log (targ);
-
-				Vector3 objectPos = transform.position;
-				targ.x = targ.x - objectPos.x;
-				targ.y = targ.y - objectPos.y;
-
-				//float angle = Mathf.Atan2 (targ.y, targ.x) * Mathf.Rad2Deg;
-				//transform.rotation = Quaternion.Euler (new Vector3 (0, 0, angle - 90));
-
-				animateWalking (rb.velocity.x, rb.velocity.y);
-
-
-
-			}//if (target =! null)
-		}//while (!doneMoving)
-
-		doneMoving = false;
-
-	}//MovetoTarget
-
-	void checkDistance ()
-	{
-		float distance = Vector3.Distance (transform.position, TiletoWorld(tileTarget));
-
-		if (distance < 1f) {
-			rb.velocity = Vector3.Normalize (TiletoWorld(tileTarget) - transform.position) * 0f;
-		}
-	}
-	void animateWalking (float vel_x, float vel_y)
-	{
-		if (vel_x > 99){
-			animator.SetBool ("walkingUp", false); 
-			animator.SetBool ("walkingRight", true); 
-			animator.SetBool ("walkingLeft", false); 
-			animator.SetBool ("walkingDown", false); 
-		}
-		else if (vel_x < -99){
-			animator.SetBool ("walkingUp", false); 
-			animator.SetBool ("walkingRight", false); 
-			animator.SetBool ("walkingLeft", true); 
-			animator.SetBool ("walkingDown", false); 
-		}
-		else if (vel_y > 99){
-			animator.SetBool ("walkingUp", true); 
-			animator.SetBool ("walkingRight", false); 
-			animator.SetBool ("walkingLeft", false);
-			animator.SetBool ("walkingDown", false); 
-		}
-		else if (vel_y < -99){
-			animator.SetBool ("walkingUp", false); 
-			animator.SetBool ("walkingRight", false); 
-			animator.SetBool ("walkingLeft", false);
-			animator.SetBool ("walkingDown", true); 
-		}
-		else {
-			animator.SetBool ("walkingUp", false); 
-			animator.SetBool ("walkingRight", false); 
-			animator.SetBool ("walkingLeft", false);
-			animator.SetBool ("walkingDown", false); 
-		}
+        if (direction.y > 0 && Mathf.Abs (direction.y) >= Mathf.Abs (direction.x))
+            animator.SetBool ("walkingUp", true); 
+		else if (direction.x < 0 && Mathf.Abs(direction.x) >= Mathf.Abs(direction.y))
+            animator.SetBool("walkingLeft", true);
+        else if(direction.x > 0 && Mathf.Abs(direction.x) >= Mathf.Abs(direction.y))
+            animator.SetBool("walkingRight", true);
+        else if (direction.y < 0 && Mathf.Abs(direction.y) >= Mathf.Abs(direction.x))
+            animator.SetBool("walkingDown", true);
 	}
 }//PlayerController
