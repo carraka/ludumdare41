@@ -34,3 +34,6 @@ sysinfo.txt
 *.unitypackage
 Assets/Animations/Crouching & Standing.meta
 Assets/Resources.meta
+Assets/Animations/Walking.meta~HEAD
+Assets/Animations/Walking.meta
+Assets/Animations/Walking.meta~ea0dd68eb284578d4d601efa396645acc26386ec
