@@ -122,7 +122,7 @@ void Start()
 
         float lastArrow;
 
-        if (x > reportTimes.Length)
+        if (x >= reportTimes.Length)
             lastArrow = songArrows[songArrows.Length - 1].beat;
         else lastArrow = reportTimes[x];
 
