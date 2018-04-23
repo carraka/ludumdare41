@@ -33,15 +33,15 @@ public class GameManager : MonoBehaviour {
 
     private static GameManager thisGM = null;
 
-    private struct replayFrame
+    public struct replayFrame
     {
-        float beat;
-        bool cluck;
-        GameDirection nextDirection;
+        public float beat;
+        public bool cluck;
+        public GameDirection nextDirection;
     }
-    private bool replayMode;
+    public bool replayMode;
     private int replayFrameNumber;
-    Queue<replayFrame> replayQueue;
+    private List<replayFrame> replayQueue;
     
 
     void Awake ()
@@ -73,6 +73,7 @@ public class GameManager : MonoBehaviour {
         romanceMusic = GameObject.Find("RomanceMusic").GetComponent<AudioSource>();
         spyMusic = GameObject.Find("SpyMusic").GetComponent<AudioSource>();
 
+        replayMode = false;
     }
 
 	// Use this for initialization
@@ -83,7 +84,7 @@ public class GameManager : MonoBehaviour {
         spyMusic.volume = .75f;
         romanceMusic.volume = .75f;
 
-        rhythmUI.StartSong();
+        rhythmUI.StartSong(replayMode);
 
         nextDirection = GameDirection.none;
         cluck = false;
@@ -91,8 +92,8 @@ public class GameManager : MonoBehaviour {
         checks = 0;
 
         replayFrameNumber = 0;
-        if (!replayMode)
-            replayQueue = new Queue<replayFrame>();
+        if (replayMode)
+            replayQueue = new List<replayFrame>();
 
     }
 
@@ -101,11 +102,25 @@ public class GameManager : MonoBehaviour {
     {
         if (replayMode)
         {
+            if (replayFrameNumber < replayQueue.Count && rhythmUI.timeToBeat(Time.time) > replayQueue[replayFrameNumber].beat)
+            {
+                cluck = replayQueue[replayFrameNumber].cluck;
+                nextDirection = replayQueue[replayFrameNumber].nextDirection;
 
+                replayFrameNumber++;
+
+            }
         }else
         {
-
+            if (cluck || nextDirection != GameDirection.none)
+            {
+                replayFrame frameData = new replayFrame();
+                frameData.beat = rhythmUI.timeToBeat(Time.time);
+                frameData.cluck = cluck;
+                frameData.nextDirection = nextDirection;
+            }
         }
+
         if (datingSimMode == true)
         {
             dm.cluck = cluck;

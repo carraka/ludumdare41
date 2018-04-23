@@ -68,6 +68,9 @@ public class RhythmUI : MonoBehaviour {
     private AudioClip squawk1;
     private AudioClip squawk2;
 
+    bool replayMode;
+    private Text replayText;
+
     private void Awake()
     {
         RhythmArrowPrefab = (GameObject)Resources.Load("prefabs/RhythmArrow", typeof(GameObject));
@@ -109,6 +112,10 @@ public class RhythmUI : MonoBehaviour {
         squawk1 = (AudioClip)Resources.Load("Audio/SFX/squawk1");
         squawk2 = (AudioClip)Resources.Load("Audio/SFX/squawk2");
 
+        replayText = GameObject.Find("ReplayText").GetComponent<Text>();
+
+        Material newMaterial = new Material(replayText.material);
+        replayText.material = newMaterial;
 
     }
 
@@ -183,8 +190,12 @@ public class RhythmUI : MonoBehaviour {
 
     }
 
-    public void StartSong()
+    public void StartSong(bool replay = false)
     {
+        replayMode = replay;
+
+        replayText.enabled = replayMode;
+
         //song.play ();
         songStartTime = Time.time;
         playing = true;
@@ -346,6 +357,15 @@ public class RhythmUI : MonoBehaviour {
 
     void Update ()
     {
+        if (replayMode)
+        {
+            float brightness = (Mathf.Sin(timeToBeat(Time.time) * Mathf.PI / 2f) + 1) * 255f / 2;
+            byte alpha = (byte) Mathf.RoundToInt(brightness);
+
+            replayText.color = new Color32(255, 255, 255, alpha);
+
+            return;
+        }
         if (playing)
         {
             float currentBeat = timeToBeat(Time.time);
