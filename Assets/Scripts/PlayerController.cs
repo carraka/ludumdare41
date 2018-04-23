@@ -38,6 +38,21 @@ public class PlayerController : MonoBehaviour {
     //private bool newMovement;
 	private bool moving;
 
+    public void pushAction (Movement.action command, float duration)
+    {
+        pushAction(command, duration, spyLocation);
+    }
+
+    public void pushAction (Movement.action command, float duration, Vector2 moveDest)
+    {
+        Movement move = new Movement();
+        move.command = command;
+        move.duration = duration;
+        move.moveDest = moveDest;
+
+        actionQueue.Enqueue(move);
+    }
+
 	// Use this for initialization
 	void Start () {
 		animator = this.GetComponent<Animator> ();

@@ -94,10 +94,12 @@ public class RhythmUI : MonoBehaviour {
         loveSlider = GameObject.Find("LoveSlider").GetComponent<Slider>();
 
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-    }
 
-    // Use this for initialization
-    void Start()
+
+}
+
+// Use this for initialization
+void Start()
     {
         leftLastPressed = -1;
         downLastPressed = -1;
@@ -106,25 +108,6 @@ public class RhythmUI : MonoBehaviour {
 
         nextReport = 0;
         prepareReport(0);
-
-        reportSpyArrows = 0;
-        reportSpyHits = 0;
-        reportLoveArrows = 0;
-        reportLoveHits = 0;
-
-        if (reportTimes.Length > 0)
-        {
-            foreach(arrow check in songArrows)
-                if (check.beat <= reportTimes[nextReport])
-                {
-                    if (check.type == arrowType.spy)
-                        reportSpyArrows++;
-                    if (check.type == arrowType.romance)
-                        reportLoveArrows++;
-                }
-        }
-
-        StartSong();
     }
 
     void prepareReport (int x)
