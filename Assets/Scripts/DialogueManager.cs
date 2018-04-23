@@ -52,8 +52,6 @@ public class DialogueManager : MonoBehaviour {
     public bool cluck;
 
 
-    private int lineNum;
-
 	void Awake()
 	{
 		spyText = GameObject.Find ("SpyText").GetComponent<Text> ();
