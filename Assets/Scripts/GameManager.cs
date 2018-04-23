@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     private GameObject player;
     private PlayerController playerController;
     private RhythmUI rhythmUI;
+    private QuestionMark questionMark;
 
     public enum GameDirection { none, spy, chicken, romance };
     public GameDirection nextDirection;
@@ -56,6 +57,7 @@ public class GameManager : MonoBehaviour
         endingCode = "failNeutral";
 
         rhythmUI = GameObject.Find("RhythmUI").GetComponent<RhythmUI>();
+        questionMark = GameObject.Find("QuestionMark").GetComponent<QuestionMark>();
 
         romanceMusic = GameObject.Find("RomanceMusic").GetComponent<AudioSource>();
         spyMusic = GameObject.Find("SpyMusic").GetComponent<AudioSource>();
@@ -93,7 +95,7 @@ public class GameManager : MonoBehaviour
             else
             {
                 annoyedNPC = true;
-                // activate question mark
+                questionMark.Appear();
             }
             cluck = false;
         }
@@ -109,7 +111,7 @@ public class GameManager : MonoBehaviour
                 else
                 {
                     annoyedNPC = true;
-                    // activate question mark
+                    questionMark.Appear();
                     nextDirection = GameDirection.spy;
                 }
             }

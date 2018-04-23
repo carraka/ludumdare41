@@ -15,8 +15,9 @@ public class QuestionMark : MonoBehaviour {
 		
 	}
 
-	void Appear()
-	{
+
+	public void Appear()
+    {
 		this.GetComponent<Image>().enabled = true;
 	}
 }
