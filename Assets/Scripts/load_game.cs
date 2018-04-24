@@ -29,9 +29,17 @@ public class load_game : MonoBehaviour {
 	}
 
 	public void load_level() {
-		//buttonSound.Play ();
-		SceneManager.LoadScene("Level 1");
-		GameObject.Find ("mainmenu_loop").GetComponent<AudioSource> ().Stop ();
+		if (SceneManager.GetActiveScene().name == "title")
+		{
+			SceneManager.LoadScene ("tutorial");
+		}
+		else
+		{
+			//buttonSound.Play ();
+			SceneManager.LoadScene("Level 1");
+			GameObject.Find ("mainmenu_loop").GetComponent<AudioSource> ().Stop ();
+		}
+
 		
 	}
 	public void load_credits() {
@@ -46,8 +54,12 @@ public class load_game : MonoBehaviour {
 	}
 
 	public void load_title() {
+		
 		//buttonSound.Play ();
 		SceneManager.LoadScene("title");
+		GameObject.Find ("RomanceMusic").GetComponent<AudioSource>().Stop();
+		GameObject.Find ("SpyMusic").GetComponent<AudioSource>().Stop();
+
 
 		if (SceneManager.GetActiveScene().name == "Level 1" || SceneManager.GetActiveScene().name == "ending")
 			GameObject.Find ("mainmenu_loop").GetComponent<AudioSource>().Play ();

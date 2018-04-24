@@ -261,13 +261,13 @@ MonoBehaviour:
     Theme: Combine 2 Incompatible Genres
 
 
-    Meredith Chen - Project Lead/Programmer/Writer
-
-    Sheldon ZS - Programmer
+    Henna Ahvenniemi - Graphics Artist
 
     Jarkko Ahvenniemi - Composer/Sound Effects
 
-    Henna Ahvenniemi - Graphics Artist
+    Meredith Chen - Project Lead/Programmer/Writer
+
+    Sheldon ZS - Lead Programmer
 
     Weeping Jester - Graphics Artist
 
@@ -698,48 +698,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1466995080}
---- !u!1001 &1481354463
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4948784378317416, guid: bf4b20a1a7e190a49bada91bb2a85cd0, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4948784378317416, guid: bf4b20a1a7e190a49bada91bb2a85cd0, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4948784378317416, guid: bf4b20a1a7e190a49bada91bb2a85cd0, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4948784378317416, guid: bf4b20a1a7e190a49bada91bb2a85cd0, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4948784378317416, guid: bf4b20a1a7e190a49bada91bb2a85cd0, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4948784378317416, guid: bf4b20a1a7e190a49bada91bb2a85cd0, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4948784378317416, guid: bf4b20a1a7e190a49bada91bb2a85cd0, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4948784378317416, guid: bf4b20a1a7e190a49bada91bb2a85cd0, type: 2}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: bf4b20a1a7e190a49bada91bb2a85cd0, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &1776179423
 GameObject:
   m_ObjectHideFlags: 0

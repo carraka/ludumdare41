@@ -63,24 +63,29 @@ public class PlayerController : MonoBehaviour {
         xOffset = -160;
         yOffset = 128;
 
-        spyLocation = TiletoWorld(new Vector2(0, 4));
-
-        moveDest = spyLocation;
-        moveStart = spyLocation;
-        transform.localPosition = spyLocation;
-
-        //newMovement = false;
-		moving = false;
-
-        actionQueue = new Queue<Movement>();
-
-        foreach(Movement action in introMoves)
-        {
-            actionQueue.Enqueue(action);
-        }
+		Reset ();
     
 //		MoveManager (spyMoves);
 
+	}
+
+	public void Reset()
+	{        
+		spyLocation = TiletoWorld(new Vector2(0, 4));
+
+		moveDest = spyLocation;
+		moveStart = spyLocation;
+		transform.localPosition = spyLocation;
+
+		//newMovement = false;
+		moving = false;
+
+		actionQueue = new Queue<Movement>();
+
+		foreach(Movement action in introMoves)
+		{
+			actionQueue.Enqueue(action);
+		}
 	}
 	
 /*    void TempMoveManager()

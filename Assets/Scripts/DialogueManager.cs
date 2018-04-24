@@ -34,9 +34,11 @@ public class DialogueManager : MonoBehaviour {
 	private Image speechBubble;
 	private Image returnMenuButton;
 	private Image restartButton;
+	private Image replayButton;
 	private Image playerSprite;
 
 	private Text activeText;
+	private Text replayButtonText;
 
 	public bool inCheck = false;
 	public bool gameOver = false;
@@ -57,6 +59,8 @@ public class DialogueManager : MonoBehaviour {
 		speechBubble = GameObject.Find ("SpeechBubble").GetComponent<Image> ();
 		returnMenuButton = GameObject.Find ("ReturnMenuButton").GetComponent<Image> ();
 		restartButton = GameObject.Find ("RestartButton").GetComponent<Image> ();
+		replayButton = GameObject.Find ("ReplayButton").GetComponent<Image> ();
+		replayButtonText = GameObject.Find ("ReplayButtonText").GetComponent<Text> ();
 		playerSprite = GameObject.Find ("playerSprite").GetComponent<Image> ();
 
 	/*	bossSound = GameObject.Find ("Boss").GetComponent<AudioSource> ();
@@ -65,7 +69,7 @@ public class DialogueManager : MonoBehaviour {
 */
 	}
 
-	void Start () {
+	public void Reset () {
 
 		tempDialogue = "";
 		loveExpression = "";
@@ -77,6 +81,11 @@ public class DialogueManager : MonoBehaviour {
 		chickenNum = 0;
 		tempCode = "";
 
+	}
+
+	void Start()
+	{
+		Reset ();
 	}
 	IEnumerator wait_a_bit(){
 		yield return new WaitForSeconds (1f);
@@ -90,6 +99,7 @@ public class DialogueManager : MonoBehaviour {
 			if (Input.GetKey(KeyCode.Space))
 			{
 				SceneManager.LoadScene("ending");
+				gameManager.replayMode = false;
 			}
 		}
 
@@ -365,6 +375,8 @@ public class DialogueManager : MonoBehaviour {
 		spyText.enabled = true;
 		spyText.fontSize = 20;
 
+		replayButton.enabled = true;
+		replayButtonText.enabled = true;	
 		gameOver = true;
 
 	}
@@ -395,6 +407,21 @@ public class DialogueManager : MonoBehaviour {
 
 		//background = somenewbackground;
 
+	}
+
+	public void DisableLoveInterest()
+	{
+		loveInterestImg.enabled = false;
+		NPCText.enabled = false;
+		speechBubble.enabled = false;
+
+	}
+
+	public void ChangeSpyColors()
+	{
+		dialogueBox.color = new Color32(74, 114, 46,255);
+		returnMenuButton.sprite = Resources.Load <Sprite>("Sprites/UI/spyguy_button_blue");
+		restartButton.sprite = Resources.Load <Sprite>("Sprites/UI/spyguy_button_blue");
 	}
 
 	public void UpdateStartingText()

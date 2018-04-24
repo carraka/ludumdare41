@@ -35,6 +35,13 @@ public class GameManager : MonoBehaviour
 
     private static GameManager thisGM = null;
 
+	private AudioSource audio;
+
+	private AudioClip clucks1;
+	private AudioClip clucks2;
+	private AudioClip squawk1;
+	private AudioClip squawk2;
+
     public struct replayFrame
     {
         public float beat;
@@ -57,12 +64,22 @@ public class GameManager : MonoBehaviour
 			player = GameObject.Find("Player");
 			playerController = player.GetComponent<PlayerController>();
 
-			endingCode = "failNeutral";
+			endingCode = "succeedSpy";
 
 			rhythmUI = GameObject.Find("RhythmUI").GetComponent<RhythmUI>();
 			questionMark = GameObject.Find("QuestionMark").GetComponent<QuestionMark>();
 			romanceMusic = GameObject.Find("RomanceMusic").GetComponent<AudioSource>();
 			spyMusic = GameObject.Find("SpyMusic").GetComponent<AudioSource>();
+
+			DontDestroyOnLoad (GameObject.Find ("RomanceMusic"));
+			DontDestroyOnLoad (GameObject.Find ("SpyMusic"));
+
+			audio = GameObject.Find("RhythmUI").GetComponent<AudioSource>();
+
+			clucks1 = (AudioClip)Resources.Load("Audio/SFX/clucks1");
+			clucks2 = (AudioClip)Resources.Load("Audio/SFX/clucks2");
+			squawk1 = (AudioClip)Resources.Load("Audio/SFX/squawk1");
+			squawk2 = (AudioClip)Resources.Load("Audio/SFX/squawk2");
 
 			thisGM.Start ();
 		}
@@ -106,13 +123,39 @@ public class GameManager : MonoBehaviour
         checks = 0;
 
         replayFrameNumber = 0;
-        if (replayMode)
+        if (!replayMode)
             replayQueue = new List<replayFrame>();
 
-        endingCode = "succeedSpy";
+		GameObject.Find ("ReplayButton").GetComponent<Image> ().enabled = false;
+		GameObject.Find ("ReplayButtonText").GetComponent<Text> ().enabled = false;
 	
 //		SwitchToDatingSimMode ();
 //		checks++;
+	}
+
+	public void watchReplay()
+	{
+		replayMode = true;
+		playerController.Reset ();
+		annoyedNPC = false;
+		questionMark.enabled = false;
+
+		Start ();
+
+		if (datingSimMode)
+		{
+			dm.Reset ();
+
+			player.GetComponent<Image>().enabled = true;
+
+			dm.ChangeSpyColors ();
+			datingSimMode = false;
+			dm.DisableLoveInterest ();
+
+			GameObject.Find ("SpyText").GetComponent<Text> ().fontSize = 12;
+			GameObject.Find ("SpyText").GetComponent<Text> ().color = new Color (145, 230, 255);
+
+		}
 	}
 	
 	// Update is called once per frame
@@ -135,15 +178,26 @@ public class GameManager : MonoBehaviour
             }
         }else
         {
-            if (cluck || nextDirection != GameDirection.none)
-            {
-                replayFrame frameData = new replayFrame();
-                frameData.beat = rhythmUI.timeToBeat(Time.time);
-                frameData.cluck = cluck;
-                frameData.nextDirection = nextDirection;
+			if (cluck || nextDirection != GameDirection.none) {
+				replayFrame frameData = new replayFrame ();
+				frameData.beat = rhythmUI.timeToBeat (Time.time);
+				frameData.cluck = cluck;
+				frameData.nextDirection = nextDirection;
 
 				replayQueue.Add (frameData);
-            }
+
+				if (cluck)
+					if (Random.value < .5)
+						audio.PlayOneShot (squawk1);
+					else
+						audio.PlayOneShot (squawk2);
+
+				if (nextDirection == GameManager.GameDirection.chicken)
+					if (Random.value < .5)
+						audio.PlayOneShot (clucks1);
+					else
+						audio.PlayOneShot (clucks2);
+			}
         }
 
         if (datingSimMode == true)
@@ -159,13 +213,10 @@ public class GameManager : MonoBehaviour
 
         if (cluck)
         {
-            if (annoyedNPC == true)
-                SwitchToDatingSimMode();
-            else
-            {
-                annoyedNPC = true;
-                questionMark.Appear();
-            }
+			Debug.Log ("cluck check");
+
+            annoyedNPC = true;
+            questionMark.Appear();
             cluck = false;
         }
 
@@ -173,22 +224,11 @@ public class GameManager : MonoBehaviour
         {
             checks++;
 
-            if (nextDirection == GameDirection.chicken)
+			if (nextDirection == GameDirection.romance || nextDirection == GameDirection.chicken || annoyedNPC)
             {
-                if (annoyedNPC == true)
                     SwitchToDatingSimMode();
-                else
-                {
-                    annoyedNPC = true;
-                    questionMark.Appear();
-                    nextDirection = GameDirection.spy;
-                }
             }
-
-            if (nextDirection == GameDirection.romance)
-                SwitchToDatingSimMode();
-
-            if (nextDirection == GameDirection.spy)
+	            if (nextDirection == GameDirection.spy)
             {
                 switch (checks)
                 {
@@ -245,7 +285,7 @@ public class GameManager : MonoBehaviour
             datingSimMode = true;
             dm.ChangeToDatingColors();
 
-            Destroy(player);
+			player.GetComponent<Image>().enabled = false;
         }
     }
 
